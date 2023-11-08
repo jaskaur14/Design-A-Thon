@@ -9,13 +9,9 @@ module.exports = {
             const usernameCheck = await User.findOne({username: req.body.username})
             const emailCheck = await User.findOne({email: req.body.email})
             if (usernameCheck) {
-                res.status(400)
-                assert.equal(error.errors['username'].message, 'This username is already in use. Please select a different username.')
-                // .json({message: 'This username is already in use. Please select a different username.'})
+                res.status(400).json({errors:{username:{message:'This username is already in use. Please select a different username.'}}})
             } else if (emailCheck) { 
-                res.status(400)
-                assert.equal(error.errors['email'].message, 'This email has already been registered.')
-                // .json({message:'This email has already been registered.'})
+                res.status(400).json({errors:{email:{message:'This email has already been registered.'}}})
             } else {
                 const newUser = await User.create(req.body)
                 const userToken = jwt.sign({_id: newUser._id, username:newUser.username, email:newUser.email}, SECRET, {expiresIn:'2h'})

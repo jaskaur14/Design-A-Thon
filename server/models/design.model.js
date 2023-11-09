@@ -1,20 +1,25 @@
 const mongoose = require('mongoose');
 
 const DesignSchema = new mongoose.Schema({
-    
     image: {
-        type: Image,
+        data: Buffer,
+        type: String,
         required: [true, 'image is required']
     },
-
     commentary: {
         type: String,
         required: [true, "commentary is required"],
         maxLength: [300, "commentary must be under 300 characters"]
     },
-    },
-{ timestamps: true }
-);
+    challenge: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Challenge"
+    }, 
+    user: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User"
+    }
+}, { timestamps: true })
 
 const Design = mongoose.model('Design', DesignSchema);
 

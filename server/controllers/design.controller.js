@@ -8,7 +8,8 @@ cloudinary.config({
 let streamifier = require('streamifier');
 
 const uploadToCloudinary = (file) => {
-    return new Promise(resolve, reject) => {
+    // return new Promise
+        (resolve, reject) => {
         let cld_upload_stream = cloudinary.uploader.upload_stream(
             { folder: "design-a-thon", public_id: file.originalname },
             (error, result) => {
@@ -42,7 +43,7 @@ module.exports.findOneDesign = (req, res) => {
         });}
 
 module.exports.createNewDesign = (req, res) => {
-    const result = await uploadToCloudinary(req.file);
+    const result = uploadToCloudinary(req.file);
     req.body.image = result.url;
     Designs.create(req.body)
         .then(newlyCreatedDesign => {
@@ -53,7 +54,7 @@ module.exports.createNewDesign = (req, res) => {
         });}
 
 module.exports.updateExistingDesign = (req, res) => {
-    const result = await uploadToCloudinary(req.file);
+    const result = uploadToCloudinary(req.file);
     req.body.image = result.url;
     Designs.findOneAndUpdate(
         { _id: req.params.id },

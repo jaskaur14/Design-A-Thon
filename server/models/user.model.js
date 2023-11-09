@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt');
-const { isEmail } = require('validator')
+// const { isEmail } = require('validator')
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -22,6 +22,12 @@ const UserSchema = new mongoose.Schema({
         minLength: [8, "Password must be at least 8 characters"]
     }, 
     aboutMe: { type: String },
+    submissions: [
+        {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: "Design"
+        }
+    ]
 }, { timestamps: true })
 
 // Validate confirm password 

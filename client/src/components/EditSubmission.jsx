@@ -33,7 +33,13 @@ const EditSubmission = () => {
     const [error, setError] = useState({})
 
     const handleChange = (e) => {
-        setDesign({...design, [e.target.commentary]: e.target.value})
+        const {name, value} = e.target;
+        if(e.target.name === 'image') {
+            const image = e.target.files[0];
+            setDesign({...design, [name]: image})
+        }else{
+            setDesign({...design, [name]: value})
+        }
     }
 
     const handleSubmit = (e) => {
@@ -64,7 +70,7 @@ const EditSubmission = () => {
     return (
         <div>
             <h2 style={{fontFamily: 'copperplate'}}>Edit Submission:</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div>
                     <label htmlFor="">Name: </label>
                     <input type="text" name="name" value={design.name} onChange={handleChange} />
@@ -74,7 +80,7 @@ const EditSubmission = () => {
                 </div>
                 <div>
                     <label htmlFor="">Design: </label>
-                    <input type="text" name="name" value={design.image} onChange={handleChange} />
+                    <input type="file" name="image" value={design.image} onChange={handleChange} />
                     {
                         error.image ? <p>{error.image.message}</p> : null
                     }

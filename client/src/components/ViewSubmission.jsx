@@ -32,9 +32,7 @@ const OneDesign = () => {
     return (
         <div>
             <h1 style={{fontFamily: 'cursive'}}>{design.name}</h1>
-            <img src="" alt="" />
-            <label htmlFor="">Upload Design</label>
-            <input type="file" accept='image/jpeg, image/png, image/jpg' />
+            <img src={design.image} alt="Design Image" />
             <p>Commentary: {design.commentary}</p>
         </div>
     )

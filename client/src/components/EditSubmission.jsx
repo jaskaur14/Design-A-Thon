@@ -13,6 +13,7 @@ const EditSubmission = () => {
     const navigate = useNavigate()
 
     const [design, setDesign] = useState({
+        name: '',
         image: '',
         commentary: ''
     })

@@ -12,6 +12,7 @@ const OneDesign = () => {
     const navigate = useNavigate()
 
     const [design, setDesign] = useState({
+        name: '',
         image: '',
         commentary: ''
     })
@@ -21,7 +22,7 @@ const OneDesign = () => {
         axios.get(`http://localhost:8000/api/designs/${id}`)
         .then(res => {
             console.log(res)
-            setDesigns(res.data.design)
+            setDesign(res.data.design)
             console.log(Array.isArray(res.data.designs)) 
         })
         .catch(err => {

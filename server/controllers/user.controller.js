@@ -14,14 +14,14 @@ module.exports = {
                 res.status(400).json({errors:{email:{message:'This email has already been registered.'}}})
             } else {
                 const newUser = await User.create(req.body)
-                const userToken = jwt.sign({_id: newUser._id, username:newUser.username, email:newUser.email}, SECRET, {expiresIn:'2h'})
+                const userToken = jwt.sign({_id: newUser._id}, SECRET, {expiresIn:'2h'})
                 console.log(userToken)
-                res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json(newUser)
+                res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: newUser._id, username: newUser.username, email: newUser.email})
             }
         }
         catch(err) {
             console.log(err)
-            res.status(400).json(err)
+            res.status(500).json(err)
         }
     }, 
 
@@ -31,23 +31,37 @@ module.exports = {
             if(user) {
                 const correctPassword = await bcrypt.compare(req.body.password, user.password)
                 if (correctPassword) {
-                    const userToken = jwt.sign({_id: user._id, username:user.username, email:user.email}, SECRET, {expiresIn:'2h'})
-                    res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json(user)
+                    const userToken = jwt.sign({_id: user._id}, SECRET, {expiresIn:'2h'})
+                    res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: user._id, username: user.username, email: user.email})
                 } else {
-                    res.status(400).json({message:'Invalid email/password'})
+                    res.status(401).json({message:'Invalid email/password'})
                 }
             } else {
-                res.status(400).json({message:'Invalid email/password'})
+                res.status(401).json({message:'Invalid email/password'})
             }
         }
         catch(err) { 
-            res.status(400).json({error: err})
+            res.status(500).json(err)
         }
     }, 
     
     logoutUser: (req, res) => {
         res.clearCookie('userToken')
         res.status(200).json({message:'Logged out successfully'})
+    },
+
+    updateUser: async (req, res) => {
+        await User.findOneAndUpdate(
+            { _id: req.params.id },
+            req.body,
+            { new: true, runValidators: true }
+        )
+            .then(updatedUser => {
+                res.status(200).json({_id: updatedUser._id, username: updatedUser.username, email: updatedUser.email, aboutMe: updatedUser.aboutMe})
+            })
+            .catch((err) => {
+                res.status(400).json(err)
+            })
     }
 }
 
@@ -70,19 +84,6 @@ module.exports.getOneUser = (req, res) => {
             res.json({ message: 'Something went wrong', error: err })
         })
 }
-
-module.exports.updateUser = (req, res) => {
-    User.findOneAndUpdate(
-        { _id: req.params.id },
-        req.body,
-        { new: true, runValidators: true }
-    )
-        .then(updatedUser => {
-            res.json({ user: updatedUser })
-        })
-        .catch((err) => {
-            res.json({ message: 'Something went wrong', error: err })
-        });}
 
 module.exports.deleteUser = (req, res) => {
     User.deleteOne({ _id: req.params.id })

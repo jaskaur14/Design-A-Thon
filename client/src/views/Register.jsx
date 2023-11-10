@@ -31,7 +31,6 @@ const Register = (props) => {
                 errors = { errors }
                 initialUsername = ""
                 initialEmail = ""
-                initialPassword = ""
                 initialAboutMe = ""
                 btnTxt = "Register as a new user"
             />

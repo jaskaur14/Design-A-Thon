@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from "./components/Header"
 import Login from "./components/Login"
 import MainDashboard from "./components/MainDashboard"
+import Settings from "./views/Settings"
 import Register from "./views/Register"
 import { UserProvider } from "./components/UserDetails"
 import './App.css'
@@ -18,6 +19,7 @@ function App() {
               <Route path="/login" element = {<Login />} />
               <Route path="/" element = {<Header />}>
                 <Route path="/main" element={<MainDashboard />} />
+                <Route path="/settings" element={<Settings />} />
               </Route>
           </Routes>
         </BrowserRouter>

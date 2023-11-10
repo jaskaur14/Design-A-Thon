@@ -16,7 +16,7 @@ const Login = (props) => {
         axios.post('http://localhost:8000/api/loginUser', { email, password }, {withCredentials:true})
             .then((res) => {
                 console.log(res)
-                setCurrentUser(res.data)
+                setCurrentUser(res.data) 
                 navigate('/main')
             })
             .catch((err) => {

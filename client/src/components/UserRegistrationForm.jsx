@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 const UserRegistrationForm = (props) => {
 
-    const { onSubmitProp, errors, initialUsername, initialEmail, initialPassword, initialAboutMe, btnTxt } = props
+    const { onSubmitProp, errors, initialUsername, initialEmail, initialAboutMe, btnTxt } = props
     const [username, setUsername] = useState(initialUsername)
     const [email, setEmail] = useState(initialEmail)
-    const [password, setPassword] = useState(initialPassword)
+    const [password, setPassword] = useState("")
     const [cfmPassword, setCfmPassword] = useState("")
     const [aboutMe, setAboutMe] = useState(initialAboutMe)
 

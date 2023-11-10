@@ -1,4 +1,27 @@
-const Designs = require('../models/design.model');
+const Designs = require('../model/design.model');
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+let streamifier = require('streamifier');
+
+const uploadToCloudinary = (file) => {
+    // return new Promise
+        (resolve, reject) => {
+        let cld_upload_stream = cloudinary.uploader.upload_stream(
+            { folder: "design-a-thon", public_id: file.originalname },
+            (error, result) => {
+                if (error) reject(error);
+                else resolve(result);
+            }
+        );
+        streamifier.createReadStream(file.buffer).pipe(cld_upload_stream);
+    };
+};
+
+// cloudinary.uploader.destroy
 
 module.exports.findAllDesigns = (req, res) => {
     Designs.find()
@@ -20,6 +43,8 @@ module.exports.findOneDesign = (req, res) => {
         });}
 
 module.exports.createNewDesign = (req, res) => {
+    const result = uploadToCloudinary(req.file);
+    req.body.image = result.url;
     Designs.create(req.body)
         .then(newlyCreatedDesign => {
             res.status(200).json({ design: newlyCreatedDesign })
@@ -29,6 +54,8 @@ module.exports.createNewDesign = (req, res) => {
         });}
 
 module.exports.updateExistingDesign = (req, res) => {
+    const result = uploadToCloudinary(req.file);
+    req.body.image = result.url;
     Designs.findOneAndUpdate(
         { _id: req.params.id },
         req.body,

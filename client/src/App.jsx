@@ -5,6 +5,7 @@ import Login from "./components/Login"
 import MainDashboard from "./components/MainDashboard"
 import Register from "./views/Register"
 import { UserProvider } from "./components/UserDetails"
+import AdminChallenge from "./components/AdminChallenge"
 import './App.css'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
               <Route path="/login" element = {<Login />} />
               <Route path="/" element = {<Header />}>
               <Route path="/main" element={<MainDashboard />} />
+              <Route path="/admin" element={<AdminChallenge />} />
               </Route>
           </Routes>
         </BrowserRouter>

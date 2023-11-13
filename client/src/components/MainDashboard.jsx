@@ -63,7 +63,7 @@ const MainDashboard = (props) => {
                 <br />
                 <Link to={"/designs"}>Submit a Design!</Link>
                 <br />
-                <Link to={"/designs"}>See All Designs</Link>
+                <Link to={"/alldesigns"}>See All Designs</Link>
             </div>
         </div>
 

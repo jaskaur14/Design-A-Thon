@@ -25,7 +25,7 @@ function App() {
               <Route path="/" element = {<Header />}>
                 <Route path="/main" element={<MainDashboard />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route Path="/alldesigns" element={<AllDesigns />} /> 
+                <Route path="/alldesigns" element={<AllDesigns />} /> 
                 {/* AllDesigns still routing to the design submission form. Dunno why */}
               <Route path="/admin" element={<AdminChallenge />} />
               <Route path="/designs" element={<Form />} />

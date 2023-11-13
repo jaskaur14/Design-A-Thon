@@ -1,7 +1,12 @@
 const Challenge = require('../models/challenge.model')
+const User = require('../models/user.model')
+const jwt = require('jsonwebtoken')
+// const SECRET = process.env.SECRET_KEY
+const SECRET = "password"
 
 module.exports.createNewChallenge = (req,res) => {
-    Challenge.create(req.body)
+    const user = jwt.verify(req.cookies.userToken, SECRET);
+    Challenge.create({ ...req.body, user: user })
         .then(newlyCreatedChallenge => {
             res.status(200).json({ challenge: newlyCreatedChallenge })
         })

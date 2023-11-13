@@ -4,17 +4,17 @@ const DesignSchema = new mongoose.Schema({
   
     name: {
         type: String,
-        required: [true, "name is required"],
-        minLength: [3, "name must be at least 3 characters long"]
+        // required: [true, "name is required"],
+        // minLength: [3, "name must be at least 3 characters long"]
     },
     image: {
         type: String,
-        required: [true, 'image is required']
+        // required: [true, 'image is required']
     },
     commentary: {
         type: String,
-        required: [true, "commentary is required"],
-        maxLength: [300, "commentary must be under 300 characters"]
+        // required: [true, "commentary is required"],
+        // maxLength: [300, "commentary must be under 300 characters"]
     },
     challenge: {
         type: mongoose.Schema.Types.ObjectId,

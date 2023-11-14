@@ -1,6 +1,7 @@
-const Designs = require('../model/design.model')
+const Design = require('../models/design.model')
 const jwt = require('jsonwebtoken')
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary').v2
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -25,7 +26,7 @@ const uploadToCloudinary = (file) => {
 // cloudinary.uploader.destroy
 
 module.exports.findAllDesigns = (req, res) => {
-    Designs.find()
+    Design.find()
         .then((allDesigns) => {
             res.status(200).json({ designs: allDesigns })
         })
@@ -35,7 +36,7 @@ module.exports.findAllDesigns = (req, res) => {
 }
 
 module.exports.findAllByUser = (req, res) => {
-    Designs.find({$or:[{designer: req.params.id}, {voters: {$elemMatch: req.params.id}}]})
+    Design.find({$or:[{designer: req.params.id}, {voters: {$elemMatch: req.params.id}}]})
         .then((allDesigns) => {
             res.status(200).json({ designs: allDesigns })
         })
@@ -45,7 +46,7 @@ module.exports.findAllByUser = (req, res) => {
 }
 
 module.exports.findOneDesign = (req, res) => {
-    Designs.findOne({ _id: req.params.id })
+    Design.findOne({ _id: req.params.id })
         .then(oneDesign => {
             res.status(200).json({ design: oneDesign })
         })
@@ -56,7 +57,7 @@ module.exports.findOneDesign = (req, res) => {
 module.exports.createNewDesign = (req, res) => {
     const result = uploadToCloudinary(req.file);
     req.body.image = result.url;
-    Designs.create(req.body)
+    Design.create(req.body)
         .then(newlyCreatedDesign => {
             res.status(200).json({ design: newlyCreatedDesign })
         })
@@ -67,7 +68,7 @@ module.exports.createNewDesign = (req, res) => {
 module.exports.updateExistingDesign = (req, res) => {
     const result = uploadToCloudinary(req.file);
     req.body.image = result.url;
-    Designs.findOneAndUpdate(
+    Design.findOneAndUpdate(
         { _id: req.params.id },
         req.body,
         { new: true, runValidators: true }
@@ -81,7 +82,7 @@ module.exports.updateExistingDesign = (req, res) => {
         });}
 
 module.exports.deleteAnExistingDesign = (req, res) => {
-    Designs.deleteOne({ _id: req.params.id })
+    Design.deleteOne({ _id: req.params.id })
         .then(result => {
             res.status(200).json({ result: result })
         })

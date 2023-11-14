@@ -1,12 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
+import { useNavigate, Link} from 'react-router-dom'
 
-import { useState, useEffect, useContext } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-
-import { useNavigate } from 'react-router-dom'
-
-import { UserContext } from "../components/UserDetails"
 
 const MainDashboard = (props) => {
     const { currentUser, setCurrentUser } = useContext(UserContext)
@@ -25,7 +20,6 @@ const MainDashboard = (props) => {
         })
     }, [])
 
-    const { currentUser, setCurrentUser } = useContext(UserContext)
 
     return(
         <div className="main-wrapper">

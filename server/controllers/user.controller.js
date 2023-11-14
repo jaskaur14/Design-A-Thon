@@ -1,5 +1,4 @@
 const User = require('../models/user.model')
-// const Design = require('../models/design.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 // const SECRET = process.env.SECRET_KEY

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const DesignSchema = new mongoose.Schema({
-  
+
     name: {
         type: String,
         required: [true, "name is required"],
@@ -20,10 +20,16 @@ const DesignSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Challenge"
     }, 
-    user: {
+    designer: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: "User"
-    }
+        ref: "User" 
+    }, 
+    voters: [
+        {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: "User"
+        }
+    ]
 }, { timestamps: true })
 
 const Design = mongoose.model('Design', DesignSchema);

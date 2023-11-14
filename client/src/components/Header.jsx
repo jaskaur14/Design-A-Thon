@@ -8,7 +8,13 @@ const Header = (props) => {
     const { currentUser, setCurrentUser } = useContext(UserContext)
     const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate() 
-    
+
+    useEffect(()=>{
+        setLoaded(false)
+        if (currentUser==null) { logoutUser() }
+        else { setLoaded(true) }
+    }, [])
+
     const logoutUser = () => {
         axios.post('http://localhost:8000/api/logoutUser', {}, {withCredentials:true})
             .then((res) => {
@@ -17,11 +23,6 @@ const Header = (props) => {
             })
             .catch((err) => {console.log(err)})
     }
-    
-    useEffect(()=>{
-        if (currentUser==null) { logoutUser() }
-        else { setLoaded(true) }
-    }, [])
 
     return(
         <header className="p-3 mb-3 border-bottom">

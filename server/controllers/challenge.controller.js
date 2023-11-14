@@ -1,4 +1,5 @@
 const Challenge = require('../models/challenge.model')
+const jwt = require('jsonwebtoken')
 
 module.exports.createNewChallenge = (req,res) => {
     Challenge.create(req.body)

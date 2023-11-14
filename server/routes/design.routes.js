@@ -1,4 +1,5 @@
-const DesignsController = require('../controllers/design.controller');
+const DesignsController = require('../controllers/design.controller')
+const { authenticate } = require('../config/jwt.config')
 
 module.exports = (app) => {
     app.get('/api/designs', DesignsController.findAllDesigns);

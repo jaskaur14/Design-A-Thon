@@ -1,7 +1,18 @@
-const Designs = require('../models/design.model');
+const Designs = require('../models/design.model')
+const jwt = require('jsonwebtoken')
 
 module.exports.findAllDesigns = (req, res) => {
     Designs.find()
+        .then((allDesigns) => {
+            res.status(200).json({ designs: allDesigns })
+        })
+        .catch((err) => {
+            res.status(500).json({ message: 'Something went wrong', error: err })
+        });
+}
+
+module.exports.findAllByUser = (req, res) => {
+    Designs.find({$or:[{designer: req.params.id}, {voters: {$elemMatch: req.params.id}}]})
         .then((allDesigns) => {
             res.status(200).json({ designs: allDesigns })
         })

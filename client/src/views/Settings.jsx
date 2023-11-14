@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import UserRegistrationForm from '../components/UserRegistrationForm'
+import UserActivityTable from '../components/UserActivityTable'
 import { UserContext } from "../components/UserDetails"
 
 const Settings = (props) => {
 
     const { currentUser, setCurrentUser } = useContext(UserContext)
     const [errors, setErrors] = useState([])
-    const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate()
 
     const updateUser = (userParam) => {
@@ -27,16 +27,17 @@ const Settings = (props) => {
     return (
         <div className="container py-3">
             <h3 className="d-flex justify-self-start mb-3">My Profile</h3>
-            { loaded && 
-                <UserRegistrationForm 
-                    onSubmitProp = { updateUser }
-                    errors = { errors }
-                    initialUsername = { currentUser.username }
-                    initialEmail = { currentUser.email }
-                    initialAboutMe = { currentUser.aboutMe }
-                    btnTxt = "Update my profile"
-                />
-            }
+            <UserRegistrationForm 
+                onSubmitProp = { updateUser }
+                errors = { errors }
+                initialUsername = { currentUser.username }
+                initialEmail = { currentUser.email }
+                initialAboutMe = { currentUser.aboutMe }
+                btnTxt = "Update my profile"
+            />
+            <hr />
+            <h3 className="d-flex justify-self-start mb-3">Design Challenge Participation</h3>
+            <UserActivityTable />
         </div>
     )
 }

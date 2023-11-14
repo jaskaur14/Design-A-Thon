@@ -1,4 +1,5 @@
-const DesignsController = require('../controllers/design.controller');
+const DesignsController = require('../controllers/design.controller')
+const { authenticate } = require('../config/jwt.config')
 const multer = require("multer");
 const { memoryStorage } = require("multer");
 const storage = memoryStorage()

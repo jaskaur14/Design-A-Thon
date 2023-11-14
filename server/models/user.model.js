@@ -27,6 +27,12 @@ const UserSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId, 
             ref: "Design"
         }
+    ], 
+    votedDesigns: [
+        {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: "Design"
+        }
     ]
 }, { timestamps: true })
 

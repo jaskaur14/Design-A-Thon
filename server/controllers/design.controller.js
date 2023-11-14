@@ -1,6 +1,13 @@
+
 const Designs = require('../models/design.model');
 const cloudinary = require('cloudinary').v2;
 const jwt = require('jsonwebtoken')
+
+const Design = require('../models/design.model')
+const jwt = require('jsonwebtoken')
+const cloudinary = require('cloudinary').v2
+
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -40,6 +47,7 @@ module.exports = {
         }
     },
 
+
     findAllDesigns : async (req, res) => {
         try{
             const designs = await Designs.find().populate('user')
@@ -49,22 +57,53 @@ module.exports = {
             res.status(500).json(err)
         }
     },
+
+module.exports.findAllDesigns = (req, res) => {
+    Design.find()
+        .then((allDesigns) => {
+            res.status(200).json({ designs: allDesigns })
+        })
+        .catch((err) => {
+            res.status(500).json({ message: 'Something went wrong', error: err })
+        });
+}
+
+module.exports.findAllByUser = (req, res) => {
+    Design.find({$or:[{designer: req.params.id}, {voters: {$elemMatch: req.params.id}}]})
+        .then((allDesigns) => {
+            res.status(200).json({ designs: allDesigns })
+        })
+        .catch((err) => {
+            res.status(500).json({ message: 'Something went wrong', error: err })
+        });
+
 }
 
 module.exports.findOneDesign = (req, res) => {
-    Designs.findOne({ _id: req.params.id })
+    Design.findOne({ _id: req.params.id })
         .then(oneDesign => {
             res.status(200).json({ design: oneDesign })
         })
         .catch((err) => {
             res.status(500).json({ message: 'Something went wrong', error: err })
+
+
+        });}
+
+module.exports.createNewDesign = (req, res) => {
+    const result = uploadToCloudinary(req.file);
+    req.body.image = result.url;
+    Design.create(req.body)
+        .then(newlyCreatedDesign => {
+            res.status(200).json({ design: newlyCreatedDesign })
+
         })
     },
 
 module.exports.updateExistingDesign = (req, res) => {
     const result = uploadToCloudinary(req.file);
     req.body.image = result.url;
-    Designs.findOneAndUpdate(
+    Design.findOneAndUpdate(
         { _id: req.params.id },
         req.body,
         { new: true, runValidators: true }
@@ -79,7 +118,7 @@ module.exports.updateExistingDesign = (req, res) => {
         },
 
 module.exports.deleteAnExistingDesign = (req, res) => {
-    Designs.deleteOne({ _id: req.params.id })
+    Design.deleteOne({ _id: req.params.id })
         .then(result => {
             res.status(200).json({ result: result })
             })

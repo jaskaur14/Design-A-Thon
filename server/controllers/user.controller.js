@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+// const Design = require('../models/design.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 // const SECRET = process.env.SECRET_KEY
@@ -16,9 +17,13 @@ module.exports = {
             } else {
                 const newUser = await User.create(req.body)
                 const userToken = jwt.sign({_id: newUser._id}, SECRET, {expiresIn:'2h'})
+
                 console.log(userToken)
                 res.status(201).cookie('userToken', userToken, 
                 {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: newUser._id, username: newUser.username, email: newUser.email})
+
+                res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: newUser._id, username: newUser.username, email: newUser.email})
+
             }
         }
         catch(err) {
@@ -30,11 +35,13 @@ module.exports = {
     loginUser: async(req, res) => {
         try {
             const user = await User.findOne({ email: req.body.email })
+                .populate("submissions")
+                .populate('votedDesigns')
             if(user) {
                 const correctPassword = await bcrypt.compare(req.body.password, user.password)
                 if (correctPassword) {
                     const userToken = jwt.sign({_id: user._id}, SECRET, {expiresIn:'2h'})
-                    res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: user._id, username: user.username, email: user.email})
+                    res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: user._id, username: user.username, email: user.email, submissions:user.submissions, votedDesigns:user.votedDesigns})
                 } else {
                     res.status(401).json({message:'Invalid email/password'})
                 }
@@ -52,7 +59,7 @@ module.exports = {
         res.status(200).json({message:'Logged out successfully'})
     },
 
-    updateUser: async (req, res) => {
+    updateUser: async(req, res) => {
         await User.findOneAndUpdate(
             { _id: req.params.id },
             req.body,
@@ -64,6 +71,14 @@ module.exports = {
             .catch((err) => {
                 res.status(400).json(err)
             })
+    }, 
+
+    getOneUser: async (req, res) => {
+        const user = await User.findOne({ _id: req.params.id })
+            .populate("submissions")
+            .populate('votedDesigns')
+            .then(oneUser => { res.status(200).json({user: oneUser}) })
+            .catch((err) => { res.status(400).json(err) })
     }
 }
 
@@ -71,16 +86,6 @@ module.exports.getAllUsers = (req, res) => {
     User.find()
         .then((allUsers) => {
             res.json({ users: allUsers })
-        })
-        .catch((err) => {
-            res.json({ message: 'Something went wrong', error: err })
-        })
-}
-
-module.exports.getOneUser = (req, res) => {
-    User.findOne({ _id: req.params.id })
-        .then(oneSingleUser => {
-            res.json({ user: oneSingleUser })
         })
         .catch((err) => {
             res.json({ message: 'Something went wrong', error: err })

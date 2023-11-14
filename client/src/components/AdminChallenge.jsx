@@ -19,14 +19,14 @@ const AdminChallenge = (props) => {
             theme,
             postingDate,
             status
-        })
+        },{withCredentials: true})
         .then((res) => {
             console.log(res)
             console.log(res.data)
 
             setTheme("")
             setPostingDate("")
-            setChallengeArr([...challengeArr, res.data])
+            setChallengeArr([...challengeArr, res.data.challenge])
         })
         .catch((err) => {
             console.log(err)
@@ -44,7 +44,7 @@ const AdminChallenge = (props) => {
                         onChange={(e) => setTheme(e.target.value)}
                         value={theme}
                         id="theme"
-                        class="form-control"
+                        className="form-control"
                         type="text"
                     />
                     {errors.theme ? <p>{errors.theme.message}</p> : null}
@@ -56,22 +56,15 @@ const AdminChallenge = (props) => {
                         onChange={(e) => setPostingDate(e.target.value)}
                         value={postingDate}
                         id="postingDate"
-                        class="form-control"
-                        type="datetime-local"
+                        className="form-control"
+                        type="date"
                     />
                     {errors.postingDate ? <p>{errors.postingDate.message}</p> : null}
                 </div>
                 <br />
-                {/* <div className="form-group">
-                    <label htmlFor="status">Status</label>
-                    <input
-                        onChange={(e) => setStatus(e.target.value)}
-                        value={status}
-                        id="status"
-                        class="form-control"
-                        type="checkbox"
-                    />
-                </div> */}
+                <button className="btn btn-outline-primary" type="submit">
+                  SUBMIT
+                </button>
             </form>
         </div>
     )

@@ -55,6 +55,8 @@ module.exports = {
     }
 }
 
+//COMMENTED OUT BELOW 
+
 // module.exports.findAllDesigns = (req, res) => {
 //     Design.find()
 //         .then((allDesigns) => {

@@ -35,8 +35,14 @@ module.exports = {
     loginUser: async(req, res) => {
         try {
             const user = await User.findOne({ email: req.body.email })
-                .populate("submissions")
-                .populate('votedDesigns')
+                .populate({
+                    path:"submissions", 
+                    populate:{path:"challenge", select:'-submissions'}
+                })
+                .populate({
+                    path:'votedDesigns', 
+                    populate:{path:"challenge"}
+                })
             if(user) {
                 const correctPassword = await bcrypt.compare(req.body.password, user.password)
                 if (correctPassword) {
@@ -65,6 +71,14 @@ module.exports = {
             req.body,
             { new: true, runValidators: true }
         )
+            .populate({
+                path:"submissions", 
+                populate:{path:"challenge"}
+            })
+            .populate({
+                path:'votedDesigns', 
+                populate:{path:"challenge"}
+            })
             .then(updatedUser => {
                 res.status(200).json({_id: updatedUser._id, username: updatedUser.username, email: updatedUser.email, aboutMe: updatedUser.aboutMe})
             })
@@ -75,8 +89,14 @@ module.exports = {
 
     getOneUser: async (req, res) => {
         const user = await User.findOne({ _id: req.params.id })
-            .populate("submissions")
-            .populate('votedDesigns')
+            .populate({
+                path:"submissions", 
+                populate:{path:"challenge"}
+            })
+            .populate({
+                path:'votedDesigns', 
+                populate:{path:"challenge"}
+            })
             .then(oneUser => { res.status(200).json({user: oneUser}) })
             .catch((err) => { res.status(400).json(err) })
     }

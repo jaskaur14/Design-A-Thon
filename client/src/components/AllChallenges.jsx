@@ -9,9 +9,9 @@ const AllChallenges = (props) => {
     const [loaded, setLoaded] = useState(false)
 
     useEffect(()=>{
+        setLoaded(false)
         axios.get("http://localhost:8000/api/challenges/")
             .then((res)=>{
-                console.log(res)
                 setChallengeArr(res.data.challenges)
                 setLoaded(true)
             })
@@ -63,8 +63,8 @@ const AllChallenges = (props) => {
                     loaded && challengeArr.map((one_challenge) => 
                     <tr key={ one_challenge._id }>
                         <td>{ one_challenge.theme }</td>
-                        <td>{ one_challenge.postingDate }</td>
-                        <td>{ one_challenge.status ? "Open": "Close" }</td>
+                        <td>{ (Date(one_challenge.postingDate)).substring(0,15) }</td>
+                        <td>{ one_challenge.status ? "Open": "Closed" }</td>
                         <td>
                             <Link to={`/admin/${ one_challenge._id }`}>
                                 <button className="btn btn-secondary btn-sm mx-2"> Edit </button> 

@@ -12,30 +12,31 @@ const UserActivityTable = (props) => {
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Challenge ID</th>
+                        <th>Challenge</th>
                         <th>Submission</th>
                         <th>Voted Design</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody className="table-group-divider">
-                { currentUser.submissions ? currentUser.submissions.map((one_subm) => 
+                { currentUser.submissions ? currentUser.submissions.map((one_subm) => {
+                    return(
                     <tr key={ one_subm._id }>
                         <td>{ one_subm.updatedAt }</td>
-                        <td>{ one_subm.challenge }</td>
+                        <td>{ one_subm.challenge.theme }</td>
                         <td>{ one_subm.name }</td>
                         <td> - </td>
                         <td>
-                            <Link to={`/submissions/${ one_subm._id }`}> View my submission </Link> 
+                            <Link to={`/designs/${ one_subm._id }`}> View my submission </Link> 
                         </td>
                     </tr>
-                    )
+                    )})
                     : null
                 }
                 { currentUser.votedDesigns ? currentUser.votedDesigns.map((one_vote) => 
                     <tr key={ one_vote._id }>
                         <td>{ one_vote.updatedAt }</td>
-                        <td>{ one_vote.challenge }</td>
+                        <td>{ one_vote.challenge.theme }</td>
                         <td> - </td>
                         <td>{ one_vote.name }</td>
                         <td>

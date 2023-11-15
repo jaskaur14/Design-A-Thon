@@ -1,17 +1,13 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
-
-import { useState, useEffect, useContext } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate, Link} from 'react-router-dom'
 import { UserContext } from "../components/UserDetails"
+
 
 const MainDashboard = (props) => {
     const { currentUser, setCurrentUser } = useContext(UserContext)
-
     const [allChallenges, setAllChallenges] = useState([])
+    
     useEffect(() => {
         console.log(currentUser)
         axios
@@ -25,7 +21,6 @@ const MainDashboard = (props) => {
         })
     }, [])
 
-    const { currentUser, setCurrentUser } = useContext(UserContext)
 
     return(
         <div className="main-wrapper">

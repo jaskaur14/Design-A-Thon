@@ -1,9 +1,7 @@
 const User = require('../models/user.model')
-// const Design = require('../models/design.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-// const SECRET = process.env.SECRET_KEY
-const SECRET = "password"
+const SECRET = process.env.SECRET_KEY
 
 module.exports = {
     registerUser: async (req, res) => {
@@ -17,13 +15,8 @@ module.exports = {
             } else {
                 const newUser = await User.create(req.body)
                 const userToken = jwt.sign({_id: newUser._id}, SECRET, {expiresIn:'2h'})
-
                 console.log(userToken)
-                res.status(201).cookie('userToken', userToken, 
-                {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: newUser._id, username: newUser.username, email: newUser.email})
-
                 res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: newUser._id, username: newUser.username, email: newUser.email})
-
             }
         }
         catch(err) {
@@ -35,8 +28,14 @@ module.exports = {
     loginUser: async(req, res) => {
         try {
             const user = await User.findOne({ email: req.body.email })
-                .populate("submissions")
-                .populate('votedDesigns')
+                .populate({
+                    path:"submissions", 
+                    populate:{path:"challenge", select:'-submissions'}
+                })
+                .populate({
+                    path:'votedDesigns', 
+                    populate:{path:"challenge"}
+                })
             if(user) {
                 const correctPassword = await bcrypt.compare(req.body.password, user.password)
                 if (correctPassword) {
@@ -65,6 +64,14 @@ module.exports = {
             req.body,
             { new: true, runValidators: true }
         )
+            .populate({
+                path:"submissions", 
+                populate:{path:"challenge"}
+            })
+            .populate({
+                path:'votedDesigns', 
+                populate:{path:"challenge"}
+            })
             .then(updatedUser => {
                 res.status(200).json({_id: updatedUser._id, username: updatedUser.username, email: updatedUser.email, aboutMe: updatedUser.aboutMe})
             })
@@ -75,8 +82,14 @@ module.exports = {
 
     getOneUser: async (req, res) => {
         const user = await User.findOne({ _id: req.params.id })
-            .populate("submissions")
-            .populate('votedDesigns')
+            .populate({
+                path:"submissions", 
+                populate:{path:"challenge"}
+            })
+            .populate({
+                path:'votedDesigns', 
+                populate:{path:"challenge"}
+            })
             .then(oneUser => { res.status(200).json({user: oneUser}) })
             .catch((err) => { res.status(400).json(err) })
     }

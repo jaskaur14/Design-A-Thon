@@ -9,11 +9,14 @@ import Form from "./components/SubmissionForm"
 import EditSubmission from './components/EditSubmission'
 import OneDesign from './components/ViewSubmission'
 import { UserProvider } from "./components/UserDetails"
-import AdminChallenge from "./components/AdminChallenge"
+import Admin from "./views/Admin"
+import AdminEdit from "./views/AdminEdit"
 import AllDesigns from './components/AllDesigns'
 import './App.css'
 
 function App() {
+
+  const [challengeArr, setChallengeArr] = useState([])
 
   return (
     <div className="container mx-5">
@@ -22,21 +25,21 @@ function App() {
           <Routes>
               <Route path="/register" element={<Register />} />
               <Route path="/login" element = {<Login />} />
+              <Route path="/admin" element={<Admin 
+                challengeArr = { challengeArr }
+                setChallengeArr = { setChallengeArr }
+              />} />
+              <Route path="/admin/:id" element={<AdminEdit 
+                challengeArr = { challengeArr }
+                setChallengeArr = { setChallengeArr }              
+              />} />
               <Route path="/" element = {<Header />}>
                 <Route path="/main" element={<MainDashboard />} />
                 <Route path="/settings" element={<Settings />} />
-
                 <Route path="/alldesigns" element={<AllDesigns />} /> 
-              <Route path="/admin" element={<AdminChallenge />} />
-              <Route path="/designs" element={<Form />} />
-              <Route path="/designs/{id}" element={<EditSubmission />} />
-              <Route path="/designs/{id}" element={<OneDesign />} />
-
-                <Route path="/admin" element={<AdminChallenge />} />
                 <Route path="/designs" element={<Form />} />
-                <Route path="/designs/{id}" element={<EditSubmission />} />
-                <Route path="/designs/{id}" element={<OneDesign />} />
-
+                <Route path="/designs/:id" element={<EditSubmission />} />
+                {/* <Route path="/designs/{id}" element={<OneDesign />} /> */}
               </Route>
           </Routes>
         </BrowserRouter>

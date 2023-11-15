@@ -17,7 +17,8 @@ const Login = (props) => {
             .then((res) => {
                 console.log(res)
                 setCurrentUser(res.data) 
-                navigate('/main')
+                if (email=="admin@designathon.com") { navigate('/admin') }
+                else { navigate('/main') }
             })
             .catch((err) => {
                 console.log(err)

@@ -1,16 +1,16 @@
 
 const Designs = require('../models/design.model');
-const cloudinary = require('cloudinary').v2;
+// const Design = require('../models/design.model')
 const jwt = require('jsonwebtoken')
+const cloudinary = require('cloudinary').v2
 
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_SECRET_KEY
-});
-let streamifier = require('streamifier');
-
+})
+let streamifier = require('streamifier')
 
 const uploadToCloudinary = (file) => {
     return new Promise((resolve, reject) => {
@@ -35,7 +35,7 @@ module.exports = {
             // console.log('LINE 58',decodedJwt.payload)
             req.body.userId = decodedJwt.payload._id
             // console.log('LOOK AT THIS LINE',req.body)
-            const design = await Designs.create(req.body)
+            const design = await Design.create(req.body)
             res.status(201).json(design)
         }
         catch(err){
@@ -43,16 +43,17 @@ module.exports = {
         }
     },
 
-        
+
     findAllDesigns : async (req, res) => {
         try{
-            const designs = await Designs.find().populate('user')
+            const designs = await Design.find().populate('user')
             res.status(200).json(designs)
         }
         catch(err){
             res.status(500).json(err)
         }
     }
+
 }
 
 //COMMENTED OUT BELOW 
@@ -125,3 +126,7 @@ module.exports = {
 //             res.status(500).json({ message: 'Something went wrong', error: err })
 //             })
 //         }
+
+
+
+

@@ -6,8 +6,8 @@ import { UserContext } from "../components/UserDetails"
 
 const MainDashboard = (props) => {
     const { currentUser, setCurrentUser } = useContext(UserContext)
-
     const [allChallenges, setAllChallenges] = useState([])
+    
     useEffect(() => {
         console.log(currentUser)
         axios

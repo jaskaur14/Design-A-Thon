@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 const UserRegistrationForm = (props) => {
 
-    const { onSubmitProp, errors, initialUsername, initialEmail, initialPassword, initialAboutMe, btnTxt } = props
+    const { onSubmitProp, errors, initialUsername, initialEmail, initialAboutMe, btnTxt } = props
     const [username, setUsername] = useState(initialUsername)
     const [email, setEmail] = useState(initialEmail)
-    const [password, setPassword] = useState(initialPassword)
+    const [password, setPassword] = useState("")
     const [cfmPassword, setCfmPassword] = useState("")
     const [aboutMe, setAboutMe] = useState(initialAboutMe)
 
@@ -25,7 +25,12 @@ const UserRegistrationForm = (props) => {
                     <div className="row mb-3">
                         <label htmlFor='username' className="form-label col-sm-4">Username</label>
                         <div className="col-sm-8">
-                            <input type="text" className="form-control" id="username" name="username" value={ username } onChange={(e)=>setUsername(e.target.value)} />
+                            <input type="text" 
+                            className="form-control" 
+                            id="username" 
+                            name="username" 
+                            value={ username } 
+                            onChange={(e)=>setUsername(e.target.value)} />
                         </div>
                     </div>
                 { errors.email ? 
@@ -35,7 +40,12 @@ const UserRegistrationForm = (props) => {
                     <div className="row mb-3">
                         <label htmlFor='email' className="form-label col-sm-4">Email</label>
                         <div className="col-sm-8">
-                            <input type="email" className="form-control" id="email" name="email" value={ email } onChange={(e)=>setEmail(e.target.value)} />
+                            <input type="email" 
+                            className="form-control" 
+                            id="email" 
+                            name="email" 
+                            value={ email } 
+                            onChange={(e)=>setEmail(e.target.value)} />
                         </div>
                     </div>
                 { errors.password ? 
@@ -45,13 +55,23 @@ const UserRegistrationForm = (props) => {
                     <div className="row mb-3">
                         <label htmlFor='password' className="form-label col-sm-4">Password</label>
                         <div className="col-sm-8">
-                            <input type="password" className="form-control" id="password" name="password" value={ password } onChange={(e)=>setPassword(e.target.value)} />
+                            <input type="password" 
+                            className="form-control" 
+                            id="password" 
+                            name="password" 
+                            value={ password } 
+                            onChange={(e)=>setPassword(e.target.value)} />
                         </div>
                     </div>
                     <div className="row mb-3">
                         <label htmlFor='cfmPassword' className="form-label col-sm-4">Re-Enter Password</label>
                         <div className="col-sm-8">
-                            <input type="password" className="form-control" id="cfmPassword" name="cfmPassword" value={ cfmPassword } onChange={(e)=>setCfmPassword(e.target.value)} />
+                            <input type="password"
+                            className="form-control" 
+                            id="cfmPassword" 
+                            name="cfmPassword" 
+                            value={ cfmPassword } 
+                            onChange={(e)=>setCfmPassword(e.target.value)} />
                         </div>
                     </div>
                 </div>
@@ -59,7 +79,12 @@ const UserRegistrationForm = (props) => {
                     <div className="row mb-3">
                         <label htmlFor='aboutMe' className="form-label col-sm-4">About Me (optional)</label>
                         <div className="col-sm-8">
-                            <textarea id="aboutMe" className="form-control" name="aboutMe" rows="7" value={ aboutMe } onChange={(e)=>setAboutMe(e.target.value)} />
+                            <textarea id="aboutMe" 
+                            className="form-control" 
+                            name="aboutMe" 
+                            rows="7" 
+                            value={ aboutMe } 
+                            onChange={(e)=>setAboutMe(e.target.value)} />
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,8 @@ const User = require('../models/user.model')
 // const Design = require('../models/design.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const SECRET = process.env.SECRET_KEY
+// const SECRET = process.env.SECRET_KEY
+const SECRET = "password"
 
 module.exports = {
     registerUser: async (req, res) => {
@@ -16,7 +17,13 @@ module.exports = {
             } else {
                 const newUser = await User.create(req.body)
                 const userToken = jwt.sign({_id: newUser._id}, SECRET, {expiresIn:'2h'})
+
+                console.log(userToken)
+                res.status(201).cookie('userToken', userToken, 
+                {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: newUser._id, username: newUser.username, email: newUser.email})
+
                 res.status(201).cookie('userToken', userToken, {httpOnly: true, maxAge: 2*60*60*1000}).json({_id: newUser._id, username: newUser.username, email: newUser.email})
+
             }
         }
         catch(err) {

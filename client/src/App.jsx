@@ -26,8 +26,8 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/admin" element={<AdminChallenge />} />
                 <Route path="/designs" element={<Form />} />
-                <Route path="/designs/{id}" element={<EditSubmission />} />
-                <Route path="/designs/{id}" element={<OneDesign />} />
+                <Route path="/designs/:id" element={<EditSubmission />} />
+                {/* <Route path="/designs/:id" element={<OneDesign />} /> */}
               </Route>
           </Routes>
         </BrowserRouter>

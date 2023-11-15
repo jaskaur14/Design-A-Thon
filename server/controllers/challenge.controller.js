@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const SECRET = process.env.SECRET_KEY
 
 module.exports.createNewChallenge = (req,res) => {
-    const user = jwt.verify(req.cookies.userToken, SECRET);
+    const user = jwt.verify(req.cookies.userToken, SECRET)
     Challenge.create({ ...req.body, user: user })
         .then(newlyCreatedChallenge => {
             res.status(200).json({ challenge: newlyCreatedChallenge })
@@ -36,8 +36,9 @@ module.exports.getOneChallenge = (req, res) => {
 }
 
 module.exports.updateChallenge = (req, res) => {
+    const user = jwt.verify(req.cookies.userToken, SECRET)
     Challenge.findOneAndUpdate(
-        { _id: req.params.id },
+        { _id: req.params.id, user: user },
         req.body,
         { new: true, runValidators: true }
     )

@@ -6,8 +6,22 @@ import AllChallenges from '../components/AllChallenges'
 
 const Admin = (props) => {
 
-    const [challengeArr, setChallengeArr] = useState([])
+    const {challengeArr, setChallengeArr} = props
+    const [errors, setErrors] = useState("")
     const navigate = useNavigate()
+
+    const createChallenge = (challengeParam) => {
+        console.log(challengeParam)
+        axios.post("http://localhost:8000/api/challenges", challengeParam, {withCredentials: true})
+        .then((res) => {
+            console.log(res)
+            setChallengeArr([...challengeArr, res.data.challenge])
+        })
+        .catch((err) => {
+            console.log(err)
+            setErrors(err)
+        })
+    }
     
     const logoutUser = () => {
         axios.post('http://localhost:8000/api/logoutUser', {}, {withCredentials:true})
@@ -24,8 +38,11 @@ const Admin = (props) => {
             </div>
             <hr />
             <AdminChallenge 
-                challengeArr = { challengeArr }
-                setChallengeArr = {setChallengeArr }
+                onSubmitProp = { createChallenge }
+                errors = { errors }
+                initialTheme = ""
+                initialPostingDate = ""
+                btnTxt = "Add New Challenge"
             />
             <hr />
             <AllChallenges 

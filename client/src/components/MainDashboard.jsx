@@ -47,7 +47,6 @@ const MainDashboard = (props) => {
                                     <td>{(!challenge.status) ? "Open" : "Closed" }</td>
                                     <td>{(currentUser._id == challenge.user)? (
                                         <span>
-                                            <Link to="#">Edit</Link>
                                             <Link to="#">View</Link>
                                         </span>
                                     ) : "Open" }</td>

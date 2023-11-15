@@ -17,19 +17,19 @@ const AllDesigns = (props) => {
     }, [])
 
     return (
-        <div>
-            <h1>Look at all the Designs!</h1>
-            {
-                designs.map((designs) => (
-                    <div key={designs._id}>
-                        <Link to={`/designs/${designs._id}`}>
-                            <h2 className="img-title">{designs.name}</h2>
-                            <img src={designs.image} alt="default image" />
-                        </Link>
-                    </div>
-                ))
-            }
-        </div>
+            <div className="designs-wrapper">
+                <h1>Look at all the Designs!</h1>
+                {
+                    designs.map((designs) => (
+                        <div key={designs._id}>
+                            <Link to={`/designs/${designs._id}`}>
+                                <h2 className="img-title">{designs.name}</h2>
+                                <img src={designs.image} alt="" />
+                            </Link>
+                        </div>
+                    ))
+                }
+            </div>
     )
 }
 export default AllDesigns

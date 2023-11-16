@@ -26,12 +26,13 @@ const AllDesigns = (props) => {
     }, [])
 
     return (
+
         <>
         { loaded && 
-            <div className="designs-wrapper">
+            <div className="design-wrapper">
                 <div>
                     <h1>Theme: { thisChallenge.theme } </h1>
-                    <h3 className="designs-h1">Look at all the Designs!</h3>
+                    <h3 style={{fontFamily: 'cursive'}} className="designs-h1">Look at all the Designs!</h3>
                 </div>
                 { 
                     designs.filter(oneDesign => oneDesign.challenge == id).map((filteredDesigns) => (
@@ -46,6 +47,7 @@ const AllDesigns = (props) => {
             </div>
         }
         </>
+
     )
 }
 

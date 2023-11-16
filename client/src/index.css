@@ -16,7 +16,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #444df5;
   text-decoration: inherit;
 }
 a:hover {
@@ -29,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url('images/vecteezy_abstract-gradient-pastel-blue-and-purple-background-neon_8617161.jpg');
 }
 
 h1 {
@@ -63,30 +64,32 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
+  
   button {
     background-color: #f9f9f9;
   }
 }
 
-.designs-wrapper {
+
+.design-wrapper {
   margin: 0;
-  display:inline-block;
-  /* align-items: center; */
-  /* justify-content: space-around; */
-  min-width: 300px;
+  display: inline-block;
+  place-items: center;
+  min-width: 320px;
   min-height: 100vh;
 }
 
-.designs-h1 {
-  text-align: center;
-}
-
-img {
+.main-imgs {
   width: 350px;
   margin: 20px;
+
 }
 
-.view-image {
-  width: 500px;
-  
+.one-img {
+  width: 600px;
+
 }
+
+
+
+

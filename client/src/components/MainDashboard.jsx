@@ -25,15 +25,14 @@ const MainDashboard = (props) => {
     return(
         <div className="main-wrapper">
             <h1>Welcome to Design-A-Thon</h1>
-
             <div>
                 <table className="table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">Theme</th>
                             <th scope="col">Date Posted</th>
-                            <th scope="col">Submissions</th>
-                            <th scope="col">Votes</th>
+                            {/* <th scope="col">Submissions</th> */}
+                            {/* <th scope="col">Votes</th> */}
                             <th scope="col">Status</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -44,28 +43,23 @@ const MainDashboard = (props) => {
                                 <tr key={challenge._id}>
                                     <td>{challenge.theme}</td>
                                     <td>{(Date (challenge.postingDate)).substring(0,15)}</td>
-                                    <td>{""}</td>
-                                    <td>{""}</td>
-                                    <td>{(!challenge.status) ? "Open" : "Closed" }</td>
-                                    <td>{(currentUser._id == challenge.user)? (
-                                        <span>
-                                            <Link to="#">Edit</Link>
-                                            <Link to="#">View</Link>
-                                        </span>
-                                    ) : "Open" }</td>
+                                    {/* <td>{""}</td>    */}
+                                    {/* <td>{""}</td> */}
+                                    <td>{(challenge.status) ? "Open" : "Closed" }</td>
+                                    <td>
+                                    {(challenge.status) ? 
+                                        <Link to={"/challenges/" + challenge._id + "/new"} className="mx-3"> Submit </Link>
+                                        : null 
+                                    }
+                                        <Link to={"/alldesigns"}> View submissions</Link>    
+                                    </td>
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
-                <Link to={"/admin"}>Add a Challenge</Link>
-                <br />
-                <Link to={"/designs"}>Submit a Design!</Link>
-                <br />
-                <Link to={"/alldesigns"}>See All Designs</Link>
             </div>
         </div>
-
     )
 }
 

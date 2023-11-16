@@ -1,6 +1,4 @@
-
-const Designs = require('../models/design.model');
-// const Design = require('../models/design.model')
+const Design = require('../models/design.model')
 const jwt = require('jsonwebtoken')
 const cloudinary = require('cloudinary').v2
 
@@ -46,7 +44,7 @@ module.exports = {
 
     findAllDesigns : async (req, res) => {
         try{
-            const designs = await Design.find().populate('user')
+            const designs = await Design.find().populate('designer')
             res.status(200).json(designs)
         }
         catch(err){

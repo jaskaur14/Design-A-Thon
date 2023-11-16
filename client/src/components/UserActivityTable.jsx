@@ -14,7 +14,7 @@ const UserActivityTable = (props) => {
                         <th>Date</th>
                         <th>Challenge</th>
                         <th>Submission</th>
-                        <th>Voted Design</th>
+                        {/* <th>Voted Design</th> */}
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -25,7 +25,7 @@ const UserActivityTable = (props) => {
                         <td>{ one_subm.updatedAt }</td>
                         <td>{ one_subm.challenge.theme }</td>
                         <td>{ one_subm.name }</td>
-                        <td> - </td>
+                        {/* <td> - </td> */}
                         <td>
                             <Link to={`/designs/${ one_subm._id }`}> View my submission </Link> 
                         </td>
@@ -33,7 +33,7 @@ const UserActivityTable = (props) => {
                     )})
                     : null
                 }
-                { currentUser.votedDesigns ? currentUser.votedDesigns.map((one_vote) => 
+                {/* { currentUser.votedDesigns ? currentUser.votedDesigns.map((one_vote) => 
                     <tr key={ one_vote._id }>
                         <td>{ one_vote.updatedAt }</td>
                         <td>{ one_vote.challenge.theme }</td>
@@ -45,7 +45,7 @@ const UserActivityTable = (props) => {
                     </tr>
                     )
                     : null
-                }
+                } */}
                 </tbody>
             </table>
         </div>

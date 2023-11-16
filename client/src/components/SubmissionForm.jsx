@@ -1,19 +1,32 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const Form = (props) => {
+
+    const {id} = useParams()
+    const [thisChallenge, setThisChallenge] = useState({})
+    const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate()
-    // const [previewSource, setPreviewSource] = useState()
     const [design, setDesign] = useState({
         name: '',
         image: '',
         commentary: ''
     })
-
+    // const [previewSource, setPreviewSource] = useState()
     // const [error, setError] = useState({})
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/challenges/" + id)
+        .then((res)=>{
+            console.log(res)
+            setThisChallenge(res.data.challenge)
+            setLoaded(true)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })    
+    }, [loaded])
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -49,11 +62,15 @@ const Form = (props) => {
     //         setPreviewSource(reader.result)
     //     }
     // }
-
+    
     return (
         <div>
-            <h2 style={{fontFamily: 'copperplate'}}>Add a new Submission:</h2>
+            { loaded && <h1>Theme: { thisChallenge.theme }</h1> }
+            <h3 style={{fontFamily: 'copperplate'}}>Add a new Submission:</h3>
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
+            { loaded && 
+                <input type="hidden" id="designer" name="designer" value={ thisChallenge._id } />                
+            }
                 <div>
                     <label htmlFor="">Name: </label>
                     <input type="text" 

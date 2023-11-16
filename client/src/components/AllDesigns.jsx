@@ -17,14 +17,14 @@ const AllDesigns = (props) => {
     }, [])
 
     return (
-        <div>
-            <h1>Look at all the Designs!</h1>
+        <div className="design-wrapper">
+            <h1 style={{fontFamily: 'cursive'}}>Look at all the Designs!</h1>
             {
                 designs.map((designs) => (
                     <div key={designs._id}>
                         <Link to={`/designs/${designs._id}`}>
                             <h2 className="img-title">{designs.name}</h2>
-                            <img src={designs.image} alt="default image" />
+                            <img className="main-imgs" src={designs.image} alt="default image" />
                         </Link>
                     </div>
                 ))

@@ -16,7 +16,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #444df5;
   text-decoration: inherit;
 }
 a:hover {
@@ -29,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url('images/vecteezy_abstract-gradient-pastel-blue-and-purple-background-neon_8617161.jpg');
 }
 
 h1 {
@@ -68,6 +69,7 @@ button:focus-visible {
   }
 }
 
+
 .design-wrapper {
   margin: 0;
   display: inline-block;
@@ -86,3 +88,4 @@ button:focus-visible {
   width: 600px;
 
 }
+

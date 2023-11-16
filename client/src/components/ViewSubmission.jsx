@@ -34,7 +34,8 @@ const OneDesign = () => {
         <div>
             <h1 style={{fontFamily: 'cursive'}}>{design.name}</h1>
             <img className="one-img" src={design.image} alt="Design Image" />
-            <p>Commentary: {design.commentary}</p>
+            <h5>Commentary: {design.commentary}</h5>
+            <div><Link to={"/alldesigns"}>Back</Link></div> 
         </div>
     )
 }

@@ -78,6 +78,7 @@ const AllChallenges = (props) => {
                 }
                 </tbody>
             </table>
+            <div><Link to={"/main"}>Go Back</Link></div>
         </div>
     )
 }

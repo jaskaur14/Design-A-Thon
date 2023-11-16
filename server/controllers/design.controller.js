@@ -3,6 +3,7 @@ const Challenge = require('../models/challenge.model')
 const ChallengeController = require('./challenge.controller')
 const jwt = require('jsonwebtoken')
 const cloudinary = require('cloudinary').v2
+// const Designs = require('../models/design/model')
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -38,9 +39,7 @@ module.exports = {
             const result = await uploadToCloudinary(req.file)
             req.body.image = result.url
             const decodedJwt = jwt.decode(req.cookies.userToken, { complete: true })
-            // console.log('LINE 58',decodedJwt.payload)
             req.body.userId = decodedJwt.payload._id
-            // console.log('LOOK AT THIS LINE',req.body)
             const design = await Design.create(req.body)
             console.log(design.challenge)
             console.log(design._id)
@@ -63,19 +62,11 @@ module.exports = {
         }
     }
 
+
 }
 
-//COMMENTED OUT BELOW 
 
-// module.exports.findAllDesigns = (req, res) => {
-//     Design.find()
-//         .then((allDesigns) => {
-//             res.status(200).json({ designs: allDesigns })
-//         })
-//         .catch((err) => {
-//             res.status(500).json({ message: 'Something went wrong', error: err })
-//         });
-// }
+
 
 // module.exports.findAllByUser = (req, res) => {
 //     Design.find({$or:[{designer: req.params.id}, {voters: {$elemMatch: req.params.id}}]})
@@ -84,8 +75,8 @@ module.exports = {
 //         })
 //         .catch((err) => {
 //             res.status(500).json({ message: 'Something went wrong', error: err })
-//         });
 
+//         })
 // }
 
 module.exports.findOneDesign = (req, res) => {
@@ -96,16 +87,6 @@ module.exports.findOneDesign = (req, res) => {
         .catch((err) => {
             res.status(500).json({ message: 'Something went wrong', error: err })
         });}
-
-// module.exports.createNewDesign = (req, res) => {
-//     const result = uploadToCloudinary(req.file);
-//     req.body.image = result.url;
-//     Design.create(req.body)
-//         .then(newlyCreatedDesign => {
-//             res.status(200).json({ design: newlyCreatedDesign })
-
-//         })
-//     },
 
 // module.exports.updateExistingDesign = (req, res) => {
 //     const result = uploadToCloudinary(req.file);
@@ -133,6 +114,8 @@ module.exports.deleteAnExistingDesign = (req, res) => {
             res.status(500).json({ message: 'Something went wrong', error: err })
             })
         }
+
+
 
 
 

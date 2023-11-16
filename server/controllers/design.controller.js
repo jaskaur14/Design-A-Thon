@@ -30,9 +30,7 @@ module.exports = {
             const result = await uploadToCloudinary(req.file)
             req.body.image = result.url
             const decodedJwt = jwt.decode(req.cookies.userToken, { complete: true })
-            // console.log('LINE 58',decodedJwt.payload)
             req.body.userId = decodedJwt.payload._id
-            // console.log('LOOK AT THIS LINE',req.body)
             const design = await Design.create(req.body)
             res.status(201).json(design)
         }
@@ -83,29 +81,29 @@ module.exports.findOneDesign = (req, res) => {
 }
 
 
-module.exports.updateExistingDesign = (req, res) => {
-    const result = uploadToCloudinary(req.file);
-    req.body.image = result.url
-    Design.findOneAndUpdate(
-        { _id: req.params.id },
-        req.body,
-        { new: true, runValidators: true }
-    )
-        .then(updatedDesign => {
-            console.log("We made it!!!!")
-            res.status(200).json({ user: updatedDesign })
-        })
-        .catch((err) => {
-                res.status(500).json({ message: 'Something went wrong', error: err })
-        })
-}
+// module.exports.updateExistingDesign = (req, res) => {
+//     const result = uploadToCloudinary(req.file);
+//     req.body.image = result.url
+//     Design.findOneAndUpdate(
+//         { _id: req.params.id },
+//         req.body,
+//         { new: true, runValidators: true }
+//     )
+//         .then(updatedDesign => {
+//             console.log("We made it!!!!")
+//             res.status(200).json({ user: updatedDesign })
+//         })
+//         .catch((err) => {
+//                 res.status(500).json({ message: 'Something went wrong', error: err })
+//         })
+// }
 
-module.exports.deleteAnExistingDesign = (req, res) => {
-    Design.deleteOne({ _id: req.params.id })
-        .then(result => {
-            res.status(200).json({ result: result })
-        })
-        .catch((err) => {
-            res.status(500).json({ message: 'Something went wrong', error: err })
-        })
-}
+// module.exports.deleteAnExistingDesign = (req, res) => {
+//     Design.deleteOne({ _id: req.params.id })
+//         .then(result => {
+//             res.status(200).json({ result: result })
+//         })
+//         .catch((err) => {
+//             res.status(500).json({ message: 'Something went wrong', error: err })
+//         })
+// }

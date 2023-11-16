@@ -18,7 +18,9 @@ const AllDesigns = (props) => {
 
     return (
             <div className="designs-wrapper">
-                <h1>Look at all the Designs!</h1>
+                <div>
+                    <h1 className="designs-h1">Look at all the Designs!</h1>
+                </div>
                 {
                     designs.map((designs) => (
                         <div key={designs._id}>

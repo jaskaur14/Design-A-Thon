@@ -71,7 +71,22 @@ button:focus-visible {
 .designs-wrapper {
   margin: 0;
   display:inline-block;
-  place-items: center;
-  min-width: 400px;
+  /* align-items: center; */
+  /* justify-content: space-around; */
+  min-width: 300px;
   min-height: 100vh;
+}
+
+.designs-h1 {
+  text-align: center;
+}
+
+img {
+  width: 350px;
+  margin: 20px;
+}
+
+.view-image {
+  width: 500px;
+  
 }

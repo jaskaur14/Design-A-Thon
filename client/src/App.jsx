@@ -37,7 +37,7 @@ function App() {
                 <Route path="/main" element={<MainDashboard />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/alldesigns" element={<AllDesigns />} /> 
-                <Route path="/designs" element={<Form />} />
+                <Route path="/challenges/:id/new" element={<Form />} />
                 <Route path="/designs/:id" element={<EditSubmission />} />
                 {/* <Route path="/designs/{id}" element={<OneDesign />} /> */}
               </Route>

@@ -15,7 +15,7 @@ const AdminEdit = (props) => {
 
     useEffect(() => {
         setLoaded(false)
-        axios.get("http://localhost:8000/api/challenges/" + id, {withCredentials:true})
+        axios.get("http://localhost:8000/api/challenges/" + id)
         .then((res)=>{
             setThisChallenge(res.data.challenge)
             setLoaded(true)

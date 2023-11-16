@@ -24,12 +24,12 @@ const DesignSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: "User" 
     }, 
-    voters: [
-        {
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: "User"
-        }
-    ]
+    // voters: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId, 
+    //         ref: "User"
+    //     }
+    // ]
 }, { timestamps: true })
 
 const Design = mongoose.model('Design', DesignSchema);

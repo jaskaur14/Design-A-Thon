@@ -1,19 +1,36 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { UserContext } from '../components/UserDetails'
 
 const Form = (props) => {
+
+    const {id} = useParams()
+    const { currentUser, setCurrentUser } = useContext(UserContext)
+    const [thisChallenge, setThisChallenge] = useState({})
+    const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate()
-    // const [previewSource, setPreviewSource] = useState()
     const [design, setDesign] = useState({
         name: '',
         image: '',
-        commentary: ''
+        commentary: '', 
+        designer: currentUser._id, 
+        challenge: id
     })
-
+    // const [previewSource, setPreviewSource] = useState()
     // const [error, setError] = useState({})
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/challenges/" + id)
+        .then((res)=>{
+            console.log(res)
+            setThisChallenge(res.data.challenge)
+            setLoaded(true)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })    
+    }, [loaded])
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -38,7 +55,6 @@ const Form = (props) => {
             })
             .catch((err) => {
                 console.log(err)
-            
             })
     }
 
@@ -49,14 +65,20 @@ const Form = (props) => {
     //         setPreviewSource(reader.result)
     //     }
     // }
-
+    
     return (
         <div>
-            <h2 style={{fontFamily: 'copperplate'}}>Add a new Submission:</h2>
+            { loaded && <h1>Theme: { thisChallenge.theme }</h1> }
+            <h3 style={{fontFamily: 'copperplate'}}>Add a new Submission:</h3>
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
+            { loaded && 
+                <input type="hidden" id="challenge" name="challenge" value={ thisChallenge._id } />                
+            }
+                <input type="hidden" id="designer" name="designer" value={ currentUser._id } />
                 <div>
                     <label htmlFor="">Name: </label>
-                    <input type="text" 
+                    <input 
+                    type="text" 
                     className="form-control" 
                     name="name" 
                     onChange={handleChange} />
@@ -66,7 +88,8 @@ const Form = (props) => {
                 </div>
                 <div>
                     <label htmlFor="">Design: </label>
-                    <input type="file" 
+                    <input 
+                    type="file" 
                     className="form-control" 
                     name="image" 
                     onChange={handleChange} />
@@ -76,9 +99,11 @@ const Form = (props) => {
                 </div>
                 <div>
                     <label htmlFor="">Add Commentary: </label>
-                    <textarea name="commentary" 
+                    <textarea 
+                    name="commentary" 
                     className="form-control" 
-                    cols="30" rows="10" 
+                    cols="30" 
+                    rows="10" 
                     onChange={handleChange} />
                     {/* {
                         error.commentary ? <p>{error.commentary.message}</p> : null

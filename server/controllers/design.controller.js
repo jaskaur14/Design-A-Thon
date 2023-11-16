@@ -1,6 +1,6 @@
 const Design = require('../models/design.model')
 const Challenge = require('../models/challenge.model')
-const ChallengeController = require('./challenge.controller')
+const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const cloudinary = require('cloudinary').v2
 // const Designs = require('../models/design/model')
@@ -14,6 +14,13 @@ let streamifier = require('streamifier')
 
 const addDesignToChallenge = (challengeId, design) => {
     return Challenge.findByIdAndUpdate(challengeId, 
+        { $push: { submissions: design._id }}, 
+        { new:true, useFindAndModify: false }
+    )
+}
+
+const addDesignToUser = (userId, design) => {
+    return User.findByIdAndUpdate(userId, 
         { $push: { submissions: design._id }}, 
         { new:true, useFindAndModify: false }
     )
@@ -41,10 +48,9 @@ module.exports = {
             const decodedJwt = jwt.decode(req.cookies.userToken, { complete: true })
             req.body.userId = decodedJwt.payload._id
             const design = await Design.create(req.body)
-            console.log(design.challenge)
-            console.log(design._id)
             const challenge = await addDesignToChallenge(design.challenge, design._id)
-            res.status(201).json({design:design, challenge:challenge})
+            const designer = await addDesignToUser(design.designer, design._id)
+            res.status(201).json({design:design, challenge:challenge, user:designer})
         }
         catch(err){
             res.status(500).json(err)

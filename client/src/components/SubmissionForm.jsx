@@ -73,7 +73,8 @@ const Form = (props) => {
             }
                 <div>
                     <label htmlFor="">Name: </label>
-                    <input type="text" 
+                    <input 
+                    type="text" 
                     className="form-control" 
                     name="name" 
                     onChange={handleChange} />
@@ -83,7 +84,8 @@ const Form = (props) => {
                 </div>
                 <div>
                     <label htmlFor="">Design: </label>
-                    <input type="file" 
+                    <input 
+                    type="file" 
                     className="form-control" 
                     name="image" 
                     onChange={handleChange} />
@@ -93,9 +95,11 @@ const Form = (props) => {
                 </div>
                 <div>
                     <label htmlFor="">Add Commentary: </label>
-                    <textarea name="commentary" 
+                    <textarea 
+                    name="commentary" 
                     className="form-control" 
-                    cols="30" rows="10" 
+                    cols="30" 
+                    rows="10" 
                     onChange={handleChange} />
                     {/* {
                         error.commentary ? <p>{error.commentary.message}</p> : null

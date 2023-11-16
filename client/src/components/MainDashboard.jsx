@@ -25,6 +25,10 @@ const MainDashboard = (props) => {
     return(
         <div className="main-wrapper">
             <h1>Welcome to Design-A-Thon</h1>
+
+            <h3>The latest challenges are here!</h3>
+
+
             <div>
                 <table className="table table-bordered">
                     <thead>
@@ -43,6 +47,7 @@ const MainDashboard = (props) => {
                                 <tr key={challenge._id}>
                                     <td>{challenge.theme}</td>
                                     <td>{(Date (challenge.postingDate)).substring(0,15)}</td>
+
                                     {/* <td>{""}</td>    */}
                                     {/* <td>{""}</td> */}
                                     <td>{(challenge.status) ? "Open" : "Closed" }</td>
@@ -53,6 +58,7 @@ const MainDashboard = (props) => {
                                     }
                                         <Link to={"/alldesigns"}> View submissions</Link>    
                                     </td>
+
                                 </tr>
                             )
                         })}

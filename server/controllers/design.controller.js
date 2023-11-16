@@ -72,8 +72,6 @@ module.exports = {
 }
 
 
-
-
 // module.exports.findAllByUser = (req, res) => {
 //     Design.find({$or:[{designer: req.params.id}, {voters: {$elemMatch: req.params.id}}]})
 //         .then((allDesigns) => {
@@ -81,6 +79,7 @@ module.exports = {
 //         })
 //         .catch((err) => {
 //             res.status(500).json({ message: 'Something went wrong', error: err })
+
 
 //         })
 // }
@@ -93,6 +92,7 @@ module.exports.findOneDesign = (req, res) => {
         .catch((err) => {
             res.status(500).json({ message: 'Something went wrong', error: err })
         });}
+
 
 // module.exports.updateExistingDesign = (req, res) => {
 //     const result = uploadToCloudinary(req.file);

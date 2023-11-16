@@ -24,13 +24,12 @@ const MainDashboard = (props) => {
 
     return(
         <div className="main-wrapper">
-            <h1>Welcome to Design-A-Thon</h1>
 
-            <h3>The latest challenges are here!</h3>
-
+            <h1 style={{fontFamily: 'cursive'}}>Welcome to Design-A-Thon</h1>
+            <h3 style={{fontFamily: 'cursive'}}>Check out the latest challenges!</h3>
 
             <div>
-                <table className="table table-bordered">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Theme</th>

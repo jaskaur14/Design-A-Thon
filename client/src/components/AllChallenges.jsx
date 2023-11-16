@@ -63,7 +63,7 @@ const AllChallenges = (props) => {
                     loaded && challengeArr.map((one_challenge) => 
                     <tr key={ one_challenge._id }>
                         <td>{ one_challenge.theme }</td>
-                        <td>{ (Date(one_challenge.postingDate)).substring(0,15) }</td>
+                        <td>{ one_challenge.postingDate.substring(0,10) }</td>
                         <td>{ one_challenge.status ? "Open": "Closed" }</td>
                         <td>
                             <Link to={`/admin/${ one_challenge._id }`}>

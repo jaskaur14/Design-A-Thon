@@ -46,7 +46,7 @@ const MainDashboard = (props) => {
                             return (
                                 <tr key={challenge._id}>
                                     <td>{challenge.theme}</td>
-                                    <td>{(Date (challenge.postingDate)).substring(0,15)}</td>
+                                    <td>{ challenge.postingDate.substring(0,10) }</td>
 
                                     {/* <td>{""}</td>    */}
                                     {/* <td>{""}</td> */}

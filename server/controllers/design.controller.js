@@ -1,7 +1,8 @@
 const Design = require('../models/design.model')
+const Challenge = require('../models/challenge.model')
+const ChallengeController = require('./challenge.controller')
 const jwt = require('jsonwebtoken')
 const cloudinary = require('cloudinary').v2
-
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -9,6 +10,13 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET_KEY
 })
 let streamifier = require('streamifier')
+
+const addDesignToChallenge = (challengeId, design) => {
+    return Challenge.findByIdAndUpdate(challengeId, 
+        { $push: { submissions: design._id }}, 
+        { new:true, useFindAndModify: false }
+    )
+}
 
 const uploadToCloudinary = (file) => {
     return new Promise((resolve, reject) => {
@@ -34,7 +42,10 @@ module.exports = {
             req.body.userId = decodedJwt.payload._id
             // console.log('LOOK AT THIS LINE',req.body)
             const design = await Design.create(req.body)
-            res.status(201).json(design)
+            console.log(design.challenge)
+            console.log(design._id)
+            const challenge = await addDesignToChallenge(design.challenge, design._id)
+            res.status(201).json({design:design, challenge:challenge})
         }
         catch(err){
             res.status(500).json(err)
@@ -77,16 +88,14 @@ module.exports = {
 
 // }
 
-// module.exports.findOneDesign = (req, res) => {
-//     Design.findOne({ _id: req.params.id })
-//         .then(oneDesign => {
-//             res.status(200).json({ design: oneDesign })
-//         })
-//         .catch((err) => {
-//             res.status(500).json({ message: 'Something went wrong', error: err })
-
-
-//         });}
+module.exports.findOneDesign = (req, res) => {
+    Design.findOne({ _id: req.params.id })
+        .then(oneDesign => {
+            res.status(200).json({ design: oneDesign })
+        })
+        .catch((err) => {
+            res.status(500).json({ message: 'Something went wrong', error: err })
+        });}
 
 // module.exports.createNewDesign = (req, res) => {
 //     const result = uploadToCloudinary(req.file);
@@ -115,15 +124,15 @@ module.exports = {
 //             })
 //         },
 
-// module.exports.deleteAnExistingDesign = (req, res) => {
-//     Design.deleteOne({ _id: req.params.id })
-//         .then(result => {
-//             res.status(200).json({ result: result })
-//             })
-//         .catch((err) => {
-//             res.status(500).json({ message: 'Something went wrong', error: err })
-//             })
-//         }
+module.exports.deleteAnExistingDesign = (req, res) => {
+    Design.deleteOne({ _id: req.params.id })
+        .then(result => {
+            res.status(200).json({ result: result })
+            })
+        .catch((err) => {
+            res.status(500).json({ message: 'Something went wrong', error: err })
+            })
+        }
 
 
 

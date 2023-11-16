@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { UserContext } from '../components/UserDetails'
 
 const Form = (props) => {
 
     const {id} = useParams()
+    const { currentUser, setCurrentUser } = useContext(UserContext)
     const [thisChallenge, setThisChallenge] = useState({})
     const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate()
     const [design, setDesign] = useState({
         name: '',
         image: '',
-        commentary: ''
+        commentary: '', 
+        designer: currentUser._id, 
+        challenge: id
     })
     // const [previewSource, setPreviewSource] = useState()
     // const [error, setError] = useState({})
@@ -51,7 +55,6 @@ const Form = (props) => {
             })
             .catch((err) => {
                 console.log(err)
-            
             })
     }
 
@@ -69,8 +72,9 @@ const Form = (props) => {
             <h3 style={{fontFamily: 'copperplate'}}>Add a new Submission:</h3>
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
             { loaded && 
-                <input type="hidden" id="designer" name="designer" value={ thisChallenge._id } />                
+                <input type="hidden" id="challenge" name="challenge" value={ thisChallenge._id } />                
             }
+                <input type="hidden" id="designer" name="designer" value={ currentUser._id } />
                 <div>
                     <label htmlFor="">Name: </label>
                     <input type="text" 

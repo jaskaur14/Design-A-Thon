@@ -10,8 +10,8 @@ module.exports = (app) => {
     app.get('/api/alldesigns', DesignsController.findAllDesigns)
     app.post('/api/designs', upload.single('image'), DesignsController.createNewDesign)
     // COMMENTED OUT BELOW
-    // app.get('/api/designs/:id', DesignsController.findOneDesign);
+    app.get('/api/designs/:id', DesignsController.findOneDesign);
     // app.patch('/api/designs/:id', DesignsController.updateExistingDesign);
     // app.post('/api/designs', upload.single('image'), DesignsController.createNewDesign)
-    // app.delete('/api/designs/:id', DesignsController.deleteAnExistingDesign);
+    app.delete('/api/designs/:id', DesignsController.deleteAnExistingDesign);
 }

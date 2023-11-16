@@ -18,11 +18,11 @@ const AllChallenges = (props) => {
             .catch((err)=>{
                 console.log(err);
             })
-    }, [thisChallenge])
+    }, [thisChallenge, setChallengeArr])
 
     const deleteChallenge = (challengeId) => {
         if (confirm('Click ok to permanently remove this challenge')) {
-            axios.delete('http://localhost:8000/api/challenge/' + challengeId)
+            axios.delete('http://localhost:8000/api/challenges/' + challengeId)
                 .then((res)=> {
                     console.log(res.data)
                     setChallengeArr(challengeArr => {

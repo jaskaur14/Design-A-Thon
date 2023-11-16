@@ -53,10 +53,10 @@ const MainDashboard = (props) => {
                                     <td>{(challenge.status) ? "Open" : "Closed" }</td>
                                     <td>
                                     {(challenge.status) ? 
-                                        <Link to={"/challenges/" + challenge._id + "/new"} className="mx-3"> Submit </Link>
+                                        <Link to={`/challenges/${ challenge._id }/new`} className="mx-3"> Submit </Link>
                                         : null 
                                     }
-                                        <Link to={"/alldesigns"}> View submissions</Link>    
+                                        <Link to={`/challenges/${ challenge._id }`}> View submissions</Link>    
                                     </td>
 
                                 </tr>

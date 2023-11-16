@@ -1,8 +1,10 @@
 const User = require('../models/user.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+
 // const SECRET = process.env.SECRET_KEY
 const SECRET = "password"
+
 
 module.exports = {
     registerUser: async (req, res) => {
@@ -91,7 +93,9 @@ module.exports = {
                 path:'votedDesigns', 
                 populate:{path:"challenge"}
             })
-            .then(oneUser => { res.status(200).json({user: oneUser}) })
+            .then(oneUser => { 
+                res.status(200).json({_id: oneUser._id, username: oneUser.username, email: oneUser.email, submissions:oneUser.submissions, votedDesigns:oneUser.votedDesigns}) 
+            })
             .catch((err) => { res.status(400).json(err) })
     }
 }

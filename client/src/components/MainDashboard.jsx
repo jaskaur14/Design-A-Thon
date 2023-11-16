@@ -24,8 +24,10 @@ const MainDashboard = (props) => {
 
     return(
         <div className="main-wrapper">
+
             <h1 style={{fontFamily: 'cursive'}}>Welcome to Design-A-Thon</h1>
             <h3 style={{fontFamily: 'cursive'}}>Check out the latest challenges!</h3>
+
             <div>
                 <table className="table table-hover">
                     <thead>
@@ -43,17 +45,19 @@ const MainDashboard = (props) => {
                             return (
                                 <tr key={challenge._id}>
                                     <td>{challenge.theme}</td>
-                                    <td>{(Date (challenge.postingDate)).substring(0,15)}</td>
+                                    <td>{ challenge.postingDate.substring(0,10) }</td>
+
                                     {/* <td>{""}</td>    */}
                                     {/* <td>{""}</td> */}
                                     <td>{(challenge.status) ? "Open" : "Closed" }</td>
                                     <td>
                                     {(challenge.status) ? 
-                                        <Link to={"/challenges/" + challenge._id + "/new"} className="mx-3"> Submit </Link>
+                                        <Link to={`/challenges/${ challenge._id }/new`} className="mx-3"> Submit </Link>
                                         : null 
                                     }
-                                        <Link to={"/alldesigns"}> View submissions</Link>    
+                                        <Link to={`/challenges/${ challenge._id }`}> View submissions</Link>    
                                     </td>
+
                                 </tr>
                             )
                         })}

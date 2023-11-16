@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken')
 const SECRET = "password"
 
 
+
+
+
 module.exports.createNewChallenge = (req,res) => {
     const user = jwt.verify(req.cookies.userToken, SECRET)
     Challenge.create({ ...req.body, user: user })
@@ -27,7 +30,6 @@ module.exports.getAllChallenges = (req, res) => {
 }
 
 module.exports.getOneChallenge = (req, res) => {
-    // const user = jwt.verify(req.cookies.userToken, SECRET)
     Challenge.findOne({ _id: req.params.id })
         .then(oneSingleChallenge => {
             res.status(200).json({ challenge: oneSingleChallenge })

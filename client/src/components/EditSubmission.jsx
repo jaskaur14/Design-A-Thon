@@ -31,7 +31,7 @@ const EditSubmission = () => {
         })
     }, [])
 
-    const [error, setError] = useState({})
+    // const [error, setError] = useState({})
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -45,14 +45,15 @@ const EditSubmission = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.patch(`http://localhost:8000/api/designs/${id}`, design)
+        let formData = new FormData()
+        axios.put(`http://localhost:8000/api/designs/${id}`, formData, {withCredentials: true})
             .then(res => {
                 console.log(res)
                 navigate("/main")
             })
             .catch(err => {
-                console.log(err.response.data.error.errors)
-                setError(err.response.data.error.errors)
+                console.log(err)
+                
             })
     }
 
@@ -74,27 +75,43 @@ const EditSubmission = () => {
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div>
                     <label htmlFor="">Name: </label>
-                    <input type="text" name="name" value={design.name} onChange={handleChange} />
-                    {
+                    <input 
+                    type="text"
+                    className="form-control" 
+                    name="name" 
+                    value={design.name} 
+                    onChange={handleChange} />
+                    {/* {
                         error.name ? <p>{error.name.message}</p> : null
-                    }
+                    } */}
                 </div>
                 <div>
                     <label htmlFor="">Design: </label>
-                    <input type="file" name="image" value={design.image} onChange={handleChange} />
-                    {
+                    <input 
+                    type="file"
+                    className="form-control" 
+                    name="image" 
+                    value={design.image} 
+                    onChange={handleChange} />
+                    {/* {
                         error.image ? <p>{error.image.message}</p> : null
-                    }
+                    } */}
                 </div>
                 <div>
                     <label htmlFor="">Add Commentary: </label>
-                    <textarea name="commentary" cols="30" rows="10" value={design.commentary} onChange={handleChange} />
-                    {
+                    <textarea 
+                    name="commentary"
+                    className="form-control" 
+                    cols="30" 
+                    rows="10" 
+                    value={design.commentary} 
+                    onChange={handleChange} />
+                    {/* {
                         error.commentary ? <p>{error.commentary.message}</p> : null
-                    }
+                    } */}
                 </div>
                 <button>Submit</button>
-                <button onClick={(e) => handleDelete(review._id)}>Delete</button>
+                <button onClick={(e) => handleDelete(design._id)}>Delete</button>
             </form>
         </div>
     )

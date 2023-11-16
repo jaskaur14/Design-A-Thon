@@ -36,10 +36,9 @@ function App() {
               <Route path="/" element = {<Header />}>
                 <Route path="/main" element={<MainDashboard />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="/alldesigns" element={<AllDesigns />} /> 
-                <Route path="/challenges/:id/new" element={<Form />} />
-                {/* <Route path="/designs/:id" element={<EditSubmission />} /> */}
+                <Route path="/challenges/:id" element={<AllDesigns />} /> 
                 <Route path="/designs/:id" element={<OneDesign />} />
+                <Route path="/challenges/:id/new" element={<Form />} />
               </Route>
           </Routes>
         </BrowserRouter>

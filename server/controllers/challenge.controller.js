@@ -1,8 +1,8 @@
 const Challenge = require('../models/challenge.model')
 const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
-const SECRET = process.env.SECRET_KEY
-// const SECRET = "password"
+// const SECRET = process.env.SECRET_KEY
+const SECRET = "password"
 
 
 module.exports.createNewChallenge = (req,res) => {

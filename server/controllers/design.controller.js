@@ -77,26 +77,18 @@ module.exports = {
 
 // }
 
-// module.exports.findOneDesign = (req, res) => {
-//     Design.findOne({ _id: req.params.id })
-//         .then(oneDesign => {
-//             res.status(200).json({ design: oneDesign })
-//         })
-//         .catch((err) => {
-//             res.status(500).json({ message: 'Something went wrong', error: err })
+module.exports.findOneDesign = (req, res) => {
+    Design.findOne({ _id: req.params.id })
+        .then(oneDesign => {
+            res.status(200).json({ design: oneDesign })
+        })
+        .catch((err) => {
+            res.status(500).json({ message: 'Something went wrong', error: err })
 
 
-//         });}
+        });}
 
-// module.exports.createNewDesign = (req, res) => {
-//     const result = uploadToCloudinary(req.file);
-//     req.body.image = result.url;
-//     Design.create(req.body)
-//         .then(newlyCreatedDesign => {
-//             res.status(200).json({ design: newlyCreatedDesign })
 
-//         })
-//     },
 
 // module.exports.updateExistingDesign = (req, res) => {
 //     const result = uploadToCloudinary(req.file);

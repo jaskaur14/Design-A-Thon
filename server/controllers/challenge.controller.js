@@ -16,7 +16,7 @@ module.exports.createNewChallenge = (req,res) => {
 }
 
 module.exports.getAllChallenges = (req, res) => {
-    Challenge.find()
+    Challenge.find().sort({ postingDate: -1 })
         .then((allChallenges) => {
             res.status(200).json({ challenges: allChallenges })
         })

@@ -24,7 +24,7 @@ const Register = (props) => {
     })
 
     return (
-        <div className="container p-4 border border-primary-subtle border-3">
+        <div className="p-4 pe-5 bg-body-tertiary rounded-3 bg-opacity-25 shadow">
             <h1 className="mb-5">Show off your design skills</h1>
             <UserRegistrationForm 
                 onSubmitProp = { createUser }

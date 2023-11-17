@@ -27,7 +27,7 @@ const Login = (props) => {
     }
 
     return(
-        <div>
+        <div className="p-4 pe-5 bg-body-tertiary rounded-3 bg-opacity-25 shadow">
             <form onSubmit={ onSubmitHandler }>
                 <h1 className="h3 mb-3 fw-normal">Sign in to Design-A-Thon</h1>
                 <div className="row mb-3">

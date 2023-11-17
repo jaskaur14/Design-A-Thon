@@ -27,7 +27,7 @@ const MainDashboard = (props) => {
             <h3 style={{fontFamily: 'cursive'}}>Check out the latest challenges!</h3>
 
             <div>
-                <table className="table table-hover">
+                <table className="table table-light table-hover mt-3 shadow">
                     <thead>
                         <tr>
                             <th scope="col">Theme</th>
@@ -38,7 +38,7 @@ const MainDashboard = (props) => {
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="table-group-divider">
                         {allChallenges.filter(oneChallenge => (new Date(oneChallenge.postingDate) <= new Date())).map((challenge) => {
                             return (
                                 <tr key={challenge._id}>

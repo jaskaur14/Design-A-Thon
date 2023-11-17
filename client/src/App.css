@@ -8,6 +8,10 @@
   cursor: pointer;
 }
 
+.btn {
+  box-shadow: 2px 2px 1px grey;
+}
+
 #one-design, #challenge-form, #challenge-table, #admin-user, #submit-form {
   text-align: left;
 }

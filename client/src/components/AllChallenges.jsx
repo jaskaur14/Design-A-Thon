@@ -21,7 +21,7 @@ const AllChallenges = (props) => {
     }, [thisChallenge, setChallengeArr])
 
     const deleteChallenge = (challengeId) => {
-        if (confirm('Click ok to permanently remove this challenge')) {
+        if (confirm("This challenge will be permanently deleted. Press ok to continue.")) {
             axios.delete('http://localhost:8000/api/challenges/' + challengeId)
                 .then((res)=> {
                     console.log(res.data)
@@ -67,12 +67,15 @@ const AllChallenges = (props) => {
                         <td>{ one_challenge.postingDate.substring(0,10) }</td>
                         <td>{ one_challenge.submissions.length }</td>
                         <td>{ one_challenge.status ? "Open": "Closed" }</td>
-                        <td>
+                        <td className="d-flex justify-content-start">
                             <button className="btn btn-secondary btn-sm mx-2" onClick={(e)=>{updateStatus(one_challenge._id, one_challenge.status)}}> Toggle Status </button> 
                             <Link to={`/admin/${ one_challenge._id }`}>
                                 <i className="bi bi-pencil-square text-light mx-2" />
                             </Link>
-                            <i className="bi bi-trash3-fill delete" onClick={(e)=>{deleteChallenge(one_challenge._id)}} />
+                            { one_challenge.submissions.length >= 1 ? 
+                                null
+                                : <i className="bi bi-trash3-fill delete" onClick={(e)=>{deleteChallenge(one_challenge._id)}} />
+                            }
                         </td>
                     </tr>
                     )

@@ -14,6 +14,10 @@ const UserRegistrationForm = (props) => {
         onSubmitProp({ username, email, password, cfmPassword, aboutMe })
     }
 
+    const disablePassword = () => {
+        if (btnTxt == "Update my profile") { return true }
+    }
+
     return(
         <form onSubmit={ onSubmitHandler }>
             <div className="row">
@@ -56,22 +60,24 @@ const UserRegistrationForm = (props) => {
                         <label htmlFor='password' className="form-label col-sm-4">Password</label>
                         <div className="col-sm-8">
                             <input type="password" 
-                            className="form-control" 
-                            id="password" 
-                            name="password" 
-                            value={ password } 
-                            onChange={(e)=>setPassword(e.target.value)} />
+                                className="form-control" 
+                                id="password" 
+                                name="password" 
+                                value={ password } 
+                                onChange={(e)=>setPassword(e.target.value)} 
+                                disabled={{disablePassword}} />
                         </div>
                     </div>
                     <div className="row mb-3">
                         <label htmlFor='cfmPassword' className="form-label col-sm-4">Re-Enter Password</label>
                         <div className="col-sm-8">
                             <input type="password"
-                            className="form-control" 
-                            id="cfmPassword" 
-                            name="cfmPassword" 
-                            value={ cfmPassword } 
-                            onChange={(e)=>setCfmPassword(e.target.value)} />
+                                className="form-control" 
+                                id="cfmPassword" 
+                                name="cfmPassword" 
+                                value={ cfmPassword } 
+                                onChange={(e)=>setCfmPassword(e.target.value)} 
+                                disabled={{disablePassword}} />
                         </div>
                     </div>
                 </div>

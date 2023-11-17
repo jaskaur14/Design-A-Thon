@@ -64,7 +64,7 @@ module.exports = {
     updateUser: async(req, res) => {
         await User.findOneAndUpdate(
             { _id: req.params.id },
-            req.body,
+            { $set: {username: req.body.username, email:req.body.email, aboutMe:req.body.aboutMe}},
             { new: true, runValidators: true }
         )
             .populate({

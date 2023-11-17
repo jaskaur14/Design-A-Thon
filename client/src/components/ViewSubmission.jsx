@@ -1,10 +1,6 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
 const OneDesign = () => {
 
@@ -14,7 +10,8 @@ const OneDesign = () => {
     const [design, setDesign] = useState({
         name: '',
         image: '',
-        commentary: ''
+        commentary: '', 
+        designer: {}
     })
     console.log(id)
 
@@ -34,11 +31,9 @@ const OneDesign = () => {
         <div>
             <div><Link to={`/challenges/${design.challenge}`}>Back to Designs</Link></div>
             <h1 style={{fontFamily: 'cursive'}}>{design.name}</h1>
-
+            <h3 className="fw-lighter fst-italic">Submitted by {design.designer.username}</h3>
             <img className="one-img" src={design.image} alt="Design Image" />
             <h5>Commentary: {design.commentary}</h5>
-            
-
         </div>
     )
 }

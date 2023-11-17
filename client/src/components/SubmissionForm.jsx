@@ -109,9 +109,9 @@ const Form = (props) => {
                         error.commentary ? <p>{error.commentary.message}</p> : null
                     } */}
                 </div>
-                <button>Submit</button>
+                <button className="m-2">Submit</button>
                 <Link to={"/main"}>
-                    <button>Cancel</button>
+                    <button className="m-2">Cancel</button>
                 </Link>
             </form>
             {/* {previewSource && (

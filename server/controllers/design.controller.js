@@ -85,7 +85,7 @@ module.exports = {
 // }
 
 module.exports.findOneDesign = (req, res) => {
-    Design.findOne({ _id: req.params.id }).populate({path:"designer"})
+    Design.findOne({ _id: req.params.id }).populate({path:"designer"}).populate({path:"challenge"})
         .then(oneDesign => {
             res.status(200).json({ design: oneDesign })
         })

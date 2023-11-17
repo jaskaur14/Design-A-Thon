@@ -48,12 +48,13 @@ const AllChallenges = (props) => {
 
     return(
         <div>
-            <h3>All Challenges</h3>
+            <h3 id="challenge-table" className="mb-3">All Challenges</h3>
             <table className="table table-dark">
                 <thead>
                     <tr>
                         <th>Theme</th>
                         <th>Posting Date</th>
+                        <th>Submissions</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -64,12 +65,13 @@ const AllChallenges = (props) => {
                     <tr key={ one_challenge._id }>
                         <td>{ one_challenge.theme }</td>
                         <td>{ one_challenge.postingDate.substring(0,10) }</td>
+                        <td>{ one_challenge.submissions.length }</td>
                         <td>{ one_challenge.status ? "Open": "Closed" }</td>
                         <td>
-                            <Link to={`/admin/${ one_challenge._id }`}>
-                                <button className="btn btn-secondary btn-sm mx-2"> Edit </button> 
-                            </Link>
                             <button className="btn btn-secondary btn-sm mx-2" onClick={(e)=>{updateStatus(one_challenge._id, one_challenge.status)}}> Toggle Status </button> 
+                            <Link to={`/admin/${ one_challenge._id }`}>
+                                <i className="bi bi-pencil-square text-light mx-2" />
+                            </Link>
                             <i className="bi bi-trash3-fill delete" onClick={(e)=>{deleteChallenge(one_challenge._id)}} />
                         </td>
                     </tr>
@@ -78,7 +80,6 @@ const AllChallenges = (props) => {
                 }
                 </tbody>
             </table>
-            <div><Link to={"/main"}>Go Back</Link></div>
         </div>
     )
 }

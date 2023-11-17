@@ -29,6 +29,7 @@ const Login = (props) => {
     return(
         <div>
             <form onSubmit={ onSubmitHandler }>
+                <h1 className="h3 mb-3 fw-normal">Sign in to Design-A-Thon</h1>
                 <div className="row mb-3">
                     <ul>
                     { errors.length!=0 ? 

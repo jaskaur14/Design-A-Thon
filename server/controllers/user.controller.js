@@ -94,7 +94,7 @@ module.exports = {
                 populate:{path:"challenge"}
             })
             .then(oneUser => { 
-                res.status(200).json({_id: oneUser._id, username: oneUser.username, email: oneUser.email, submissions:oneUser.submissions, votedDesigns:oneUser.votedDesigns}) 
+                res.status(200).json({_id: oneUser._id, username: oneUser.username, email: oneUser.email, aboutMe: oneUser.aboutMe, submissions:oneUser.submissions, votedDesigns:oneUser.votedDesigns}) 
             })
             .catch((err) => { res.status(400).json(err) })
     }

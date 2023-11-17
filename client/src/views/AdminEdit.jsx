@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import AdminChallenge from '../components/AdminChallenge'
 import AllChallenges from '../components/AllChallenges'
@@ -52,6 +52,7 @@ const AdminEdit = (props) => {
                 <button className="btn btn-light" onClick={ logoutUser }>Logout</button>
             </div>
             <hr />
+            <div id="admin-user" className="mb-3"><Link to={"/main"}>Go to User Dashboard</Link></div>
             { loaded && 
                 <AdminChallenge 
                     onSubmitProp = { updateChallenge }

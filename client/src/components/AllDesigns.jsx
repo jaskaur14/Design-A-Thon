@@ -41,7 +41,7 @@ const AllDesigns = (props) => {
                             <div key={filteredDesigns._id} className="col">
                                 <div className="card shadow-sm">
                                     <Link to={`/designs/${filteredDesigns._id}`}>
-                                        <img src={filteredDesigns.image} alt="" width="100%" height="225" preserveAspectRatio="xMidYMid slice" className="p-2"/>
+                                        <img src={filteredDesigns.image} alt="" width="100%" height="225" preserveAspectRatio="xMidYMid slice" className="p-2 card-design"/>
                                         <div className="card-body">
                                             <h2 className="img-title">{filteredDesigns.name}</h2>
                                             <p className="card-text fst-italic">Submitted by {filteredDesigns.designer.username}</p>

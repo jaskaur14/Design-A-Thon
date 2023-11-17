@@ -9,6 +9,7 @@ const Form = (props) => {
     const { currentUser, setCurrentUser } = useContext(UserContext)
     const [thisChallenge, setThisChallenge] = useState({})
     const [loaded, setLoaded] = useState(false)
+    const [newImage, setNewImage] = useState(false)
     const navigate = useNavigate()
     const [design, setDesign] = useState({
         name: '',
@@ -17,7 +18,7 @@ const Form = (props) => {
         designer: currentUser._id, 
         challenge: id
     })
-    // const [previewSource, setPreviewSource] = useState()
+    const [previewSource, setPreviewSource] = useState()
     // const [error, setError] = useState({})
 
     useEffect(() => {
@@ -37,6 +38,8 @@ const Form = (props) => {
         if(e.target.name === 'image') {
             const image = e.target.files[0];
             setDesign({...design, [name]: image})
+            setPreviewSource(URL.createObjectURL(image))
+            setNewImage(true)
         }else{
             setDesign({...design, [name]: value})
         }
@@ -67,148 +70,73 @@ const Form = (props) => {
     // }
     
     return (
-        <div>
+        <div id="submit-form">
             { loaded && <h1>Theme: { thisChallenge.theme }</h1> }
-            <h3 style={{fontFamily: 'copperplate'}}>Add a new Submission:</h3>
-            <form onSubmit={handleSubmit} encType='multipart/form-data'>
-            { loaded && 
-                <input type="hidden" id="challenge" name="challenge" value={ thisChallenge._id } />                
-            }
-                <input type="hidden" id="designer" name="designer" value={ currentUser._id } />
-                <div>
-                    <label htmlFor="">Name: </label>
-                    <input 
-                    type="text" 
-                    className="form-control" 
-                    name="name" 
-                    onChange={handleChange} />
-                    {/* {
-                        error.name ? <p>{error.name.message}</p> : null
-                    } */}
+            <div className="row">
+                <div className="col-sm-6 px-3">
+                    <h3 style={{fontFamily: 'copperplate'}} className="my-3">Submit a new design</h3>
+                    <form onSubmit={handleSubmit} encType='multipart/form-data'>
+                    { loaded && 
+                        <input type="hidden" id="challenge" name="challenge" value={ thisChallenge._id } />                
+                    }
+                        <input type="hidden" id="designer" name="designer" value={ currentUser._id } />
+                        <div className="row mb-3">
+                            <label htmlFor="name" className="col-sm-2 col-form-label">Name: </label>
+                            <div className="col-sm-10">
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                name="name" 
+                                onChange={handleChange} />
+                                {/* {
+                                    error.name ? <p>{error.name.message}</p> : null
+                                } */}
+                            </div>
+                        </div>
+                        <div className="row mb-2">
+                            <label htmlFor="image" className="col-sm-2 col-form-label">Design: </label>
+                            <div className="col-sm-10">
+                                <input 
+                                    type="file" 
+                                    className="form-control" 
+                                    name="image" 
+                                    onChange={handleChange} />
+                                    {/* {
+                                        error.image ? <p>{error.image.message}</p> : null
+                                    } */}
+                            </div>
+                        </div>
+                        <label htmlFor="commentary" className="col-sm-2 col-form-label">Commentary: </label>
+                        <textarea 
+                            name="commentary" 
+                            className="form-control" 
+                            cols="30" 
+                            rows="10" 
+                            onChange={handleChange} />
+                        {/* {
+                            error.commentary ? <p>{error.commentary.message}</p> : null
+                        } */}
+                        <div className="d-flex justify-content-end">
+                            <button className="m-2">Submit</button>
+                            <Link to={"/main"}>
+                                <button className="m-2">Cancel</button>
+                            </Link>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <label htmlFor="">Design: </label>
-                    <input 
-                    type="file" 
-                    className="form-control" 
-                    name="image" 
-                    onChange={handleChange} />
-                    {/* {
-                        error.image ? <p>{error.image.message}</p> : null
-                    } */}
+                <div className="col-sm-6 px-3">
+                    <p style={{fontFamily: 'copperplate'}} className="mt-5">Image Preview</p>
+                    <div className="col">
+                        <div className="card shadow-sm">
+                        { newImage && 
+                            <img src={previewSource} alt="Uploaded Image" />
+                        }
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="">Add Commentary: </label>
-                    <textarea 
-                    name="commentary" 
-                    className="form-control" 
-                    cols="30" 
-                    rows="10" 
-                    onChange={handleChange} />
-                    {/* {
-                        error.commentary ? <p>{error.commentary.message}</p> : null
-                    } */}
-                </div>
-                <button className="m-2">Submit</button>
-                <Link to={"/main"}>
-                    <button className="m-2">Cancel</button>
-                </Link>
-            </form>
-            {/* {previewSource && (
-                <img src={previewSource} alt= "selected"
-                style={{height: '300px' }} />
-            )} */}
+            </div>
         </div>
     )
 }
 
 export default Form
-
-// const Form = () => {
-//     const navigate = useNavigate()
-//     const [previewSource, setPreviewSource] = useState()
-//     const [design, setDesign] = useState({
-//         name: '',
-//         image: '',
-//         commentary: ''
-//     })
-
-//     const [error, setError] = useState({})
-
-//     const handleChange = (e) => {
-//         const {name, value} = e.target;
-//         if(e.target.name === 'image') {
-//             const image = e.target.files[0];
-//             setDesign({...design, [name]: image})
-//         }else{
-//             setDesign({...design, [name]: value})
-//         }
-//     }
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault()
-//         axios.post("http://localhost:8000/api/designs", design)
-//             .then(res => {
-//                 console.log(res)
-//                 navigate("/main")
-//             })
-//             .catch(err => {
-//                 console.log(err.response.data.error.errors)
-//                 setError(err.response.data.error.errors)
-//             })
-//     }
-
-//     const previewFile = (file) => {
-//         const reader = new FileReader()
-//         reader.readAsDataURL(file)
-//         reader.onloadend = () => {
-//             setPreviewSource(reader.result)
-//         }
-//     }
-
-//     return (
-//         <div>
-//             <h2 style={{fontFamily: 'copperplate'}}>Add a new Submission:</h2>
-//             <form onSubmit={handleSubmit} encType='multipart/form-data'>
-//                 <div>
-//                     <label htmlFor="">Name: </label>
-//                     <input type="text" 
-//                     className="form-control" 
-//                     name="name" 
-//                     onChange={handleChange} />
-//                     {
-//                         error.name ? <p>{error.name.message}</p> : null
-//                     }
-//                 </div>
-//                 <div>
-//                     <label htmlFor="">Design: </label>
-//                     <input type="file" 
-//                     className="form-control" 
-//                     name="image" 
-//                     onChange={handleChange} />
-//                     {
-//                         error.image ? <p>{error.image.message}</p> : null
-//                     }
-//                 </div>
-//                 <div>
-//                     <label htmlFor="">Add Commentary: </label>
-//                     <textarea name="commentary" 
-//                     className="form-control" 
-//                     cols="30" rows="10" 
-//                     onChange={handleChange} />
-//                     {
-//                         error.commentary ? <p>{error.commentary.message}</p> : null
-//                     }
-//                 </div>
-//                 <button>Submit</button>
-//                 <Link to={"/main"}>
-//                     <button>Cancel</button>
-//                 </Link>
-//             </form>
-//             {previewSource && (
-//                 <img src={previewSource} alt= "selected"
-//                 style={{height: '300px' }} />
-//             )}
-//         </div>
-//     )
-// }

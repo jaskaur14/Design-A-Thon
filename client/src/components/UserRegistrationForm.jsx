@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const UserRegistrationForm = (props) => {
 
-    const { onSubmitProp, errors, initialUsername, initialEmail, initialAboutMe, btnTxt } = props
+    const { onSubmitProp, errors, initialUsername, initialEmail, initialAboutMe, btnTxt, disablePwd } = props
     const [username, setUsername] = useState(initialUsername)
     const [email, setEmail] = useState(initialEmail)
     const [password, setPassword] = useState("")
@@ -12,10 +12,6 @@ const UserRegistrationForm = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault()
         onSubmitProp({ username, email, password, cfmPassword, aboutMe })
-    }
-
-    const disablePassword = () => {
-        if (btnTxt == "Update my profile") { return true }
     }
 
     return(
@@ -65,7 +61,7 @@ const UserRegistrationForm = (props) => {
                                 name="password" 
                                 value={ password } 
                                 onChange={(e)=>setPassword(e.target.value)} 
-                                disabled={{disablePassword}} />
+                                disabled={disablePwd} />
                         </div>
                     </div>
                     <div className="row mb-3">
@@ -77,7 +73,7 @@ const UserRegistrationForm = (props) => {
                                 name="cfmPassword" 
                                 value={ cfmPassword } 
                                 onChange={(e)=>setCfmPassword(e.target.value)} 
-                                disabled={{disablePassword}} />
+                                disabled={disablePwd} />
                         </div>
                     </div>
                 </div>

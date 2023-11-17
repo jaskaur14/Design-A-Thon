@@ -34,6 +34,7 @@ const Settings = (props) => {
                 initialEmail = { currentUser.email }
                 initialAboutMe = { currentUser.aboutMe }
                 btnTxt = "Update my profile"
+                disablePwd = {true}
             />
             <hr />
             <h3 className="d-flex justify-self-start mb-3">Design Challenge Participation</h3>

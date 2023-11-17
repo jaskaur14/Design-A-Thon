@@ -33,6 +33,7 @@ const Register = (props) => {
                 initialEmail = ""
                 initialAboutMe = ""
                 btnTxt = "Register as a new user"
+                disablePwd = {false}
             />
             <div className="d-flex justify-content-end my-2">
                 <button className="btn btn-outline-dark">

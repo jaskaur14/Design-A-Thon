@@ -48,34 +48,37 @@ const UserRegistrationForm = (props) => {
                             onChange={(e)=>setEmail(e.target.value)} />
                         </div>
                     </div>
-                { errors.password ? 
-                    <p className="text-danger mx-3">{ errors.password.message }</p>
-                    : null
-                }
-                    <div className="row mb-3">
-                        <label htmlFor='password' className="form-label col-sm-4">Password</label>
-                        <div className="col-sm-8">
-                            <input type="password" 
-                                className="form-control" 
-                                id="password" 
-                                name="password" 
-                                value={ password } 
-                                onChange={(e)=>setPassword(e.target.value)} 
-                                disabled={disablePwd} />
+                    { errors.password ? 
+                        <p className="text-danger mx-3">{ errors.password.message }</p>
+                        : null
+                    }
+                    { disablePwd ? 
+                        null : 
+                    <>
+                        <div className="row mb-3">
+                            <label htmlFor='password' className="form-label col-sm-4">Password</label>
+                            <div className="col-sm-8">
+                                <input type="password" 
+                                    className="form-control" 
+                                    id="password" 
+                                    name="password" 
+                                    value={ password } 
+                                    onChange={(e)=>setPassword(e.target.value)} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="row mb-3">
-                        <label htmlFor='cfmPassword' className="form-label col-sm-4">Re-Enter Password</label>
-                        <div className="col-sm-8">
-                            <input type="password"
-                                className="form-control" 
-                                id="cfmPassword" 
-                                name="cfmPassword" 
-                                value={ cfmPassword } 
-                                onChange={(e)=>setCfmPassword(e.target.value)} 
-                                disabled={disablePwd} />
+                        <div className="row mb-3">
+                            <label htmlFor='cfmPassword' className="form-label col-sm-4">Re-Enter Password</label>
+                            <div className="col-sm-8">
+                                <input type="password"
+                                    className="form-control" 
+                                    id="cfmPassword" 
+                                    name="cfmPassword" 
+                                    value={ cfmPassword } 
+                                    onChange={(e)=>setCfmPassword(e.target.value)} />
+                            </div>
                         </div>
-                    </div>
+                    </>
+                    }
                 </div>
                 <div className="col-sm-6 px-3">
                     <div className="row mb-3">

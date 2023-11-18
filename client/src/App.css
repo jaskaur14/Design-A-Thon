@@ -1,3 +1,21 @@
+.card-design { 
+  object-fit: cover;
+}
+
+.delete {
+  font-size: 1rem;
+  margin: 0 0 0 10px;
+  cursor: pointer;
+}
+
+.btn {
+  box-shadow: 2px 2px 1px grey;
+}
+
+#one-design, #challenge-form, #challenge-table, #admin-user, #submit-form {
+  text-align: left;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

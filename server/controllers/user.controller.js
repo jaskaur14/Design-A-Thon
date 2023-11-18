@@ -2,8 +2,8 @@ const User = require('../models/user.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-// const SECRET = process.env.SECRET_KEY
-const SECRET = "password"
+const SECRET = process.env.SECRET_KEY
+// const SECRET = "password"
 
 
 module.exports = {
@@ -64,7 +64,7 @@ module.exports = {
     updateUser: async(req, res) => {
         await User.findOneAndUpdate(
             { _id: req.params.id },
-            req.body,
+            { $set: {username: req.body.username, email:req.body.email, aboutMe:req.body.aboutMe}},
             { new: true, runValidators: true }
         )
             .populate({
@@ -94,7 +94,7 @@ module.exports = {
                 populate:{path:"challenge"}
             })
             .then(oneUser => { 
-                res.status(200).json({_id: oneUser._id, username: oneUser.username, email: oneUser.email, submissions:oneUser.submissions, votedDesigns:oneUser.votedDesigns}) 
+                res.status(200).json({_id: oneUser._id, username: oneUser.username, email: oneUser.email, aboutMe: oneUser.aboutMe, submissions:oneUser.submissions, votedDesigns:oneUser.votedDesigns}) 
             })
             .catch((err) => { res.status(400).json(err) })
     }

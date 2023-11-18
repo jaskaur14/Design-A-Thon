@@ -24,8 +24,8 @@ const Register = (props) => {
     })
 
     return (
-        <div className="container py-3">
-            <h1>Show off your design skills</h1>
+        <div className="p-4 pe-5 bg-body-tertiary rounded-3 bg-opacity-25 shadow">
+            <h1 className="mb-5">Show off your design skills</h1>
             <UserRegistrationForm 
                 onSubmitProp = { createUser }
                 errors = { errors }
@@ -33,9 +33,12 @@ const Register = (props) => {
                 initialEmail = ""
                 initialAboutMe = ""
                 btnTxt = "Register as a new user"
+                disablePwd = {false}
             />
             <div className="d-flex justify-content-end my-2">
-                <Link to={'/login'}>Login Page</Link>
+                <button className="btn btn-outline-dark">
+                    <Link to={'/login'}>Return to Login Page</Link>
+                </button>
             </div>
         </div>
     )

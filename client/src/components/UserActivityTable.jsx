@@ -24,7 +24,7 @@ const UserActivityTable = (props) => {
     return(
         <div>
         { loaded && 
-            <table className="table table-dark">
+            <table className="table table-dark shadow">
                 <thead>
                     <tr>
                         <th>Date</th>

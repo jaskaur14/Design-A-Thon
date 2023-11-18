@@ -9,15 +9,12 @@ const ChallengeSchema = new mongoose.Schema({
     postingDate: {
         type: Date,
         required: [true, "Posting date is required"],
-        validate: {
-            validator: val => {return(new Date(val) >= new Date())},
-            message: "Posting date must be in the future"
-        }
+        // validate: {
+        //     validator: val => {return(new Date(val) >= new Date())},
+        //     message: "Posting date must be in the future"
+        // }
     }, 
-    status: {
-        type: Boolean, 
-        default: false
-    }, 
+    status: { type: Boolean }, 
     submissions: [
         {
             type: mongoose.Schema.Types.ObjectId, 

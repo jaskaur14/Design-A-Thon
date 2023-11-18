@@ -56,4 +56,16 @@ UserSchema.pre('save', function(next) {
         })
 })
 
+// UserSchema.pre('findOneAndUpdate', async function(next) {
+//     this.options.runValidators = true
+//     const update = this.getUpdate()
+//     if (update.password) {
+//         const passwordHash = await bcrypt.hash(update.password, 10)
+//         this.setUpdate({ $set: {
+//             password: passwordHash,
+//         }})
+//     next()
+//     }
+// })
+
 module.exports = mongoose.model('User', UserSchema)

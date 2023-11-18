@@ -3,7 +3,6 @@ import axios from 'axios'
 import { useNavigate, Link} from 'react-router-dom'
 import { UserContext } from "../components/UserDetails"
 
-
 const MainDashboard = (props) => {
     const { currentUser, setCurrentUser } = useContext(UserContext)
     const [allChallenges, setAllChallenges] = useState([])
@@ -21,7 +20,6 @@ const MainDashboard = (props) => {
         })
     }, [])
 
-
     return(
         <div className="main-wrapper">
 
@@ -29,7 +27,7 @@ const MainDashboard = (props) => {
             <h3 style={{fontFamily: 'cursive'}}>Check out the latest challenges!</h3>
 
             <div>
-                <table className="table table-hover">
+                <table className="table table-light table-hover mt-3 shadow">
                     <thead>
                         <tr>
                             <th scope="col">Theme</th>
@@ -40,14 +38,13 @@ const MainDashboard = (props) => {
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {allChallenges.map((challenge, index) => {
+                    <tbody className="table-group-divider">
+                        {allChallenges.filter(oneChallenge => (new Date(oneChallenge.postingDate) <= new Date())).map((challenge) => {
                             return (
                                 <tr key={challenge._id}>
                                     <td>{challenge.theme}</td>
                                     <td>{ challenge.postingDate.substring(0,10) }</td>
-
-                                    {/* <td>{""}</td>    */}
+                                    {/* <td>{challenge.submissions.length}</td> */}
                                     {/* <td>{""}</td> */}
                                     <td>{(challenge.status) ? "Open" : "Closed" }</td>
                                     <td>
@@ -55,7 +52,7 @@ const MainDashboard = (props) => {
                                         <Link to={`/challenges/${ challenge._id }/new`} className="mx-3"> Submit </Link>
                                         : null 
                                     }
-                                        <Link to={`/challenges/${ challenge._id }`}> View submissions</Link>    
+                                        <Link to={`/challenges/${ challenge._id }`}> View submissions</Link>
                                     </td>
 
                                 </tr>

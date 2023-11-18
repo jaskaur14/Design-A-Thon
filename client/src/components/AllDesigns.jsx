@@ -34,16 +34,25 @@ const AllDesigns = (props) => {
                     <h1>Theme: { thisChallenge.theme } </h1>
                     <h3 style={{fontFamily: 'cursive'}} className="designs-h1">Look at all the Designs!</h3>
                 </div>
-                { 
-                    designs.filter(oneDesign => oneDesign.challenge == id).map((filteredDesigns) => (
-                        <div key={filteredDesigns._id}>
-                            <Link to={`/designs/${filteredDesigns._id}`}>
-                                <h2 className="img-title">{filteredDesigns.name}</h2>
-                                <img src={filteredDesigns.image} alt="" />
-                            </Link>
-                        </div>
-                    ))
-                }
+                <div className="container">
+                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    { 
+                        designs.filter(oneDesign => oneDesign.challenge == id).map((filteredDesigns) => (
+                            <div key={filteredDesigns._id} className="col">
+                                <div className="card shadow-sm">
+                                    <Link to={`/designs/${filteredDesigns._id}`}>
+                                        <img src={filteredDesigns.image} alt="" width="100%" height="225" preserveAspectRatio="xMidYMid slice" className="p-2 card-design"/>
+                                        <div className="card-body">
+                                            <h2 className="img-title">{filteredDesigns.name}</h2>
+                                            <p className="card-text fst-italic">Submitted by {filteredDesigns.designer.username}</p>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                        ))
+                    }
+                    </div>
+                </div>
             </div>
         }
         </>

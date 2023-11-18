@@ -1,10 +1,6 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
 const OneDesign = () => {
 
@@ -14,7 +10,9 @@ const OneDesign = () => {
     const [design, setDesign] = useState({
         name: '',
         image: '',
-        commentary: ''
+        commentary: '', 
+        designer: {},
+        challenge: {}
     })
     console.log(id)
 
@@ -23,7 +21,7 @@ const OneDesign = () => {
         .then(res => {
             console.log(res)
             setDesign(res.data.design)
-            console.log(Array.isArray(res.data.designs)) 
+            console.log(res.data.design)
         })
         .catch(err => {
             console.log(err)
@@ -31,15 +29,23 @@ const OneDesign = () => {
     }, [])
 
     return (
-        <div>
-            <div><Link to={`/challenges/${design.challenge}`}>Back to Designs</Link></div>
-            <h1 style={{fontFamily: 'cursive'}}>{design.name}</h1>
-
-            <img className="one-img" src={design.image} alt="Design Image" />
-            <h5>Commentary: {design.commentary}</h5>
-            
-
+        <div id="one-design">
+            <div className="mb-3"><Link to={`/challenges/${design.challenge._id}`}>Back to Designs</Link></div>
+            <h1>Theme: { design.challenge.theme } </h1>
+            <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div className="col p-4 d-flex flex-column position-static">
+                    <h3 style={{fontFamily: 'cursive'}}>{design.name}</h3>
+                    <div className="mb-1 text-body-secondary">Submitted by 
+                        <Link to={`/designers/${design.designer._id}`}> {design.designer.username} </Link>
+                    </div>
+                    <p className="card-text mb-auto">{design.commentary}</p>
+                </div>
+                <div className="col-auto d-none d-lg-block">
+                    <img className="one-img" src={design.image} alt="Design Image" />
+                </div>
+            </div>
         </div>
     )
 }
+
 export default OneDesign

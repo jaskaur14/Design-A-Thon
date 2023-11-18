@@ -12,6 +12,7 @@ import { UserProvider } from "./components/UserDetails"
 import Admin from "./views/Admin"
 import AdminEdit from "./views/AdminEdit"
 import AllDesigns from './components/AllDesigns'
+import Designer from './components/Designer'
 import './App.css'
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/challenges/:id" element={<AllDesigns />} /> 
                 <Route path="/designs/:id" element={<OneDesign />} />
                 <Route path="/challenges/:id/new" element={<Form />} />
+                <Route path="/designers/:id" element={<Designer />} />
               </Route>
           </Routes>
         </BrowserRouter>

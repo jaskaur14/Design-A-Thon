@@ -15,14 +15,28 @@ let streamifier = require('streamifier')
 const addDesignToChallenge = (challengeId, design) => {
     return Challenge.findByIdAndUpdate(challengeId, 
         { $push: { submissions: design._id }}, 
-        { new:true, useFindAndModify: false }
+        { new: true, useFindAndModify: false }
     )
 }
 
 const addDesignToUser = (userId, design) => {
     return User.findByIdAndUpdate(userId, 
         { $push: { submissions: design._id }}, 
-        { new:true, useFindAndModify: false }
+        { new: true, useFindAndModify: false }
+    )
+}
+
+const removeDesignFromChallenge = (challengeId, design) => {
+    return Challenge.findByIdAndUpdate(challengeId, 
+        { $pull: { submissions: design._id }}, 
+        { new: true, useFindAndModify: false }
+    )
+}
+
+const removeDesignFromUser = (userId, design) => {
+    return Challenge.findByIdAndUpdate(userId, 
+        { $pull: { submissions: design._id }}, 
+        { new: true, useFindAndModify: false }
     )
 }
 
@@ -57,20 +71,16 @@ module.exports = {
         }
     },
 
-
     findAllDesigns : async (req, res) => {
         try{
-            const designs = await Design.find().populate('designer')
+            const designs = await Design.find().sort({created_at: -1}).populate('designer')
             res.status(200).json(designs)
         }
         catch(err){
             res.status(500).json(err)
         }
     }
-
-
 }
-
 
 // module.exports.findAllByUser = (req, res) => {
 //     Design.find({$or:[{designer: req.params.id}, {voters: {$elemMatch: req.params.id}}]})
@@ -79,20 +89,17 @@ module.exports = {
 //         })
 //         .catch((err) => {
 //             res.status(500).json({ message: 'Something went wrong', error: err })
-
-
 //         })
 // }
 
 module.exports.findOneDesign = (req, res) => {
-    Design.findOne({ _id: req.params.id })
+    Design.findOne({ _id: req.params.id }).populate({path:"designer"}).populate({path:"challenge"})
         .then(oneDesign => {
             res.status(200).json({ design: oneDesign })
         })
         .catch((err) => {
             res.status(500).json({ message: 'Something went wrong', error: err })
         });}
-
 
 // module.exports.updateExistingDesign = (req, res) => {
 //     const result = uploadToCloudinary(req.file);
@@ -114,15 +121,11 @@ module.exports.findOneDesign = (req, res) => {
 module.exports.deleteAnExistingDesign = (req, res) => {
     Design.deleteOne({ _id: req.params.id })
         .then(result => {
-            res.status(200).json({ result: result })
+            const challenge = removeDesignFromChallenge(req.body.challenge, req.params.id)
+            const designer = removeDesignFromUser(req.body.designer, req.params.id)
+            res.status(200).json({ result: result, challenge: challenge, designer: designer })
             })
         .catch((err) => {
             res.status(500).json({ message: 'Something went wrong', error: err })
             })
         }
-
-
-
-
-
-
